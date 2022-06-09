@@ -30,25 +30,31 @@
        </div>
 
        <div class="pageText">
-            <p>Welcome to</p>
-            <p>UWIVotes Admin Center</p> <!--change wording and add logo-->
+            <p>Start New Election</p>
        </div>
     
         <div class="adminBody">
-            <h4>Election Management</h4>
+           
             
-            <button href="#" class="adminButton" id="createElectionButton">Create Election</button>
-            <button href="#" class="adminButtonDelete">Delete Election</button> <!--make delete red-->
-            <br>
-            <button href="#" class="adminButton">Generate Election Results</button>
-            <button href="#" class="adminButton">Get Election Results</button>
-            <button href="#" class="adminButton">Post Election Results</button>
-            <br>
-            <br>
-            <h4>Candidate Management</h4>
-            <button href="#" class="adminButton">Add Candidate</button>
-            <button href="#" class="adminButton">Edit Candidate</button>
-            <button href="#" class="adminButtonDelete">Delete Candidate</button>
+            <form> 
+                <h4>Polling Information</h4>
+                <label for="">Polling Name</label><br>
+                <input class="input" type="text" id="" placeholder="Enter Election Name Here"><br>
+
+                <label for="">Upload Student Emails</label><br>
+                <input class="input" type="text" id="" placeholder="Enter Election Name Here"><br>
+
+
+                <h4>Candidate Information</h4>
+
+                <label for="email">Email</label><br>
+                <input class="input" type="text" id="email" placeholder="johndoe@uwimona.edu.jm"><br>
+
+                <div id="errorMessage"><i></i></div> <br>
+                <input id="getOTPButton" class="redButton" type="submit" value="Create Election">
+                <a href="#" class="redLink">Cancel</a>
+           
+            </form>
 
         </div>
     

@@ -16,6 +16,7 @@ document.addEventListener(
     var logInButton = document.getElementById("logInButton"); //for admin
     var password = document.getElementById("password"); //for admin
     var adminEmail = document.getElementById("adminEmail"); //for admin
+    var createElection = document.getElementById("createElectionButton"); //for admin
     
     //var email = document.getElementById("email");
 
@@ -125,6 +126,7 @@ document.addEventListener(
                               },
                             })
                             .then((response) => {response.json()
+                             
                               verifyEmail = "false";
                               window.location.href = '../view/logIn.html';
                               
@@ -133,6 +135,7 @@ document.addEventListener(
                           
                         } 
                         else {
+                          
                           errorMessage.innerHTML = "*Please ensure a valid UWI email is entered.";
                         }
                     }
@@ -247,6 +250,13 @@ document.addEventListener(
         });
     }
   
+
+    if (createElection != null){
+      createElection.addEventListener("click", function(event){
+        event.preventDefault();
+        window.location.href = '../view/createElection.html';
+      })
+    }
 
 
 
