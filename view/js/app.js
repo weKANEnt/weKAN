@@ -32,7 +32,7 @@ document.addEventListener(
     if (navCandidates != null){ 
       navCandidates.addEventListener("click", function(){
         console.log("You clicked Candidates");
-        window.location.href = '/src/view/candidates.html';
+        window.location.href = '../view/candidates.html';
  
      });
     } 
@@ -41,8 +41,8 @@ document.addEventListener(
     if (navResults != null){
       navResults.addEventListener("click", function(){
         console.log("You clicked Results");
-        window.location.href = '/src/view/results.html';
-        //.setAttribute('href', '/src/view/results.html');
+        window.location.href = '../view/results.html';
+        //.setAttribute('href', '../view/results.html');
   
      });
     }
@@ -51,8 +51,8 @@ document.addEventListener(
     if (navSignIn != null){
       navSignIn.addEventListener("click", function(){
         console.log("You clicked Sign In");
-        window.location.href = '/src/view/logIn.html';
-        //.setAttribute('href', '/src/view/logIn.html');
+        window.location.href = '../view/logIn.html';
+        //.setAttribute('href', '../view/logIn.html');
  
      });
     }
@@ -61,8 +61,8 @@ document.addEventListener(
     if (navBarLogo != null){
       navBarLogo.addEventListener("click", function(){
         console.log("You clicked Home/Logo");
-        window.location.href = '/src/view/index.html';
-        //.setAttribute('href', '/src/view/index.html');
+        window.location.href = '../view/index.html';
+        //.setAttribute('href', '../view/index.html');
  
      });
     }
@@ -99,7 +99,8 @@ document.addEventListener(
                 if (document.getElementById("email").value != null || document.getElementById("email").value != " " || document.getElementById("email").value != ""){
                     //naomi.benjamin@mymona.uwi.edu
                     //kayvia.harriott@mymona.uwi.edu
-                   fetch("http://localhost:8080/uwivotes/votes?email=" + document.getElementById("email").value, requestOptions)
+                    
+                   fetch("https://wekan-api.herokuapp.com/uwivotes/votes?email=" + document.getElementById("email").value, requestOptions)
 
                    //localStorage.setItem("someVarKey", email);  
                    
@@ -114,7 +115,7 @@ document.addEventListener(
                           //email = localStorage.getItem("email");
                           //alert(email);
                            
-                            fetch('http://localhost:8080/uwivotes/votes/OTP',{
+                            fetch('https://wekan-api.herokuapp.com/uwivotes/votes/OTP',{
                             method: 'PATCH',
                             body: JSON.stringify({
                               "email": localStorage.getItem("email"),
@@ -125,7 +126,7 @@ document.addEventListener(
                             })
                             .then((response) => {response.json()
                               verifyEmail = "false";
-                              window.location.href = '/src/view/logIn.html';
+                              window.location.href = '../view/logIn.html';
                               
                             })
                             .then((json) => console.log(json));
@@ -157,9 +158,9 @@ document.addEventListener(
             //should add more criterio for otp not being empty
             if (otpSignUp.value.length != 0){ 
                   //to do: email not saving from previous page
-                 // fetch("http://localhost:8080/uwivotes/votes/OTP?otp=" + otpSignUp.value + "&email=" + "kayvia.harriott@mymona.uwi.edu", requestOptions)
+                 // fetch("https://wekan-api.herokuapp.com/uwivotes/votes/OTP?otp=" + otpSignUp.value + "&email=" + "kayvia.harriott@mymona.uwi.edu", requestOptions)
                //alert(localStorage.getItem("email"));
-                    fetch("http://localhost:8080/uwivotes/votes/OTP?otp=" + otpSignUp.value + "&email=" + localStorage.getItem("email"), requestOptions)
+                    fetch("https://wekan-api.herokuapp.com/uwivotes/votes/OTP?otp=" + otpSignUp.value + "&email=" + localStorage.getItem("email"), requestOptions)
 
                   .then((response) => response.json())
                   .then((result) => {
@@ -170,7 +171,7 @@ document.addEventListener(
                             console.log("OTP verified");
                             //redirect to place vote
                             verifyOTP = "false";
-                            window.location.href = '/src/view/voteIntroPage.html';
+                            window.location.href = '../view/voteIntroPage.html';
                         }
                         else{
                             console.log("OTP didn't work");
@@ -205,70 +206,30 @@ document.addEventListener(
                 && password.value != null && password.value != " " && password.value != "" && password.value.length != 0){
                 console.log("Checking if Admin email valid");
 
-                /*
-                let data = {element: "barium"};
+                fetch('https://wekan-api.herokuapp.com/uwivotes/admin/login', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  'email': adminEmail.value,
+                  "password": password.value})
+              }).then(res => res.json())
+                .then(res => {
+                  
+                  if (res.success == true){
+                      window.location.href = '../view/adminIndex.html';
+                  }
+                  else {
+                    errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
 
-                fetch("http://localhost:8080/uwivotes/admin/login", {
-                  method: "POST",
-                  headers: {'Content-Type': 'application/json'}, 
-                  body: JSON.stringify(
-                    {
-                    "email": "kayvia.harriott@mymona.uwi.edu", //document.getElementById("adminEmail"),
-                    "password": "weKAN" //document.getElementById("password")
                   }
 
-                  )
-                }).then(res => {
-                  console.log("Request complete! response:", res);
-                }).then(result => {
-                    console.log(result.success);
+
+
                 })
                 
-                
-                
-                ;*/
-           
-
-
-                
-
-                //fetch("http://localhost:8080/uwivotes/admin/login", requestOptions3)
-
-                //localStorage.setItem("someVarKey", email);  
-                
-                /*fetch('http://localhost:8080/uwivotes/admin/login',{
-                  method: 'POST',
-                  body: JSON.stringify({
-                    "email": document.getElementById("adminEmail"),
-                    "password": document.getElementById("password")
-                  }),
-                  headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    },
-                  })
-                  .then((response) => {response.json()
-                    verifyAdminEmail = "false";
-                    //window.location.href = '/src/view/logIn.html';
-                    
-                  })
-                  .then((json) => console.log(json)); */
-
-
-              /*  
-                .then((response) => response.json())
-                 .then((result) => {
-                     verifyAdminEmail = result.success;
-                     //email = document.getElementById("email").value;
-                     if (verifyAdminEmail == true){  
-                       alert("admin logged in")
-                       
-                     } 
-                     else {
-                       alert("admin notlogged in")
-                     }
-                 }
-                     )
-                 .catch((error) => console.log("error", error));  */
 
 
 
@@ -285,13 +246,7 @@ document.addEventListener(
 
         });
     }
-    
-
-
-
-
-    
-    
+  
 
 
 
@@ -334,7 +289,7 @@ document.addEventListener(
 
 
 /*
-    fetch('http://localhost:8080/uwivotes/ballot/vpssp')
+    fetch('https://wekan-api.herokuapp.com/uwivotes/ballot/vpssp')
                 .then(function(response) {
                     return result.candidates
                     
@@ -344,7 +299,7 @@ document.addEventListener(
                 })*/
 
 /*
-                fetch('/src/view/page1.html')
+                fetch('../view/page1.html')
               .then(function(response) {
                     return response.json()
         }).then(function(body) {
@@ -357,13 +312,13 @@ var requestOptions = {
         method: "GET",
         redirect: "follow",
         };
-        fetch("http://localhost:8080/uwivotes/ballot/vpssp", requestOptions)
+        fetch("https://wekan-api.herokuapp.com/uwivotes/ballot/vpssp", requestOptions)
         .then((response) => response.json())
         .then((result) => document.body.innerHTML += result.candidates[0].firstName)
         .catch((error) => console.log("error", error));*/
 
 
-     /*     fetch('/src/view/page1.html')
+     /*     fetch('../view/page1.html')
         .then(function(response) {
         return response.text()
       }).then(function(body) {
