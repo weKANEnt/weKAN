@@ -34,14 +34,23 @@ document.addEventListener(
     var candidateFirstName = document.getElementById("firstName");
     var candidateLastName = document.getElementById("lastName");
     var candidateEmail = document.getElementById("email");
+    var email = document.getElementById("email");
     var candidateAbout = document.getElementById("about");
     var candidateAttachedHall = document.getElementById("hallsOfLivingDropdown");
     var candidateFacultyOfStudy = document.getElementById("facultyOfStudyDropdown");
     var candidateElectPosition = document.getElementById("electPositionsDropdown");
     var registerVoterButton = document.getElementById("registerVoterButton")
+    var registerVoter = document.getElementById("registerVoter")
+
+    var cancelDeleteElection = document.getElementById("cancelDeleteElection");
+    var cancelCreateElection = document.getElementById("cancelCreateElection");
+    var cancelRegisterVoter = document.getElementById("cancelRegisterVoter");
+    var commuteStatus = document.getElementById("commuteStatus");
+    var postGradStatus = document.getElementById("postGradStatus");
+
     }
 
-    localStorage.setItem("adminLoggedIn",false);
+    //localStorage.setItem("adminLoggedIn",false);
     
     /**Button Listeners*/
     
@@ -78,23 +87,55 @@ document.addEventListener(
     if (logOut != null){
       logOut.addEventListener("click", function(){
         console.log("You clicked Sign In");
-        localStorage.setItem("adminToken", " ");
+        localStorage.setItem("adminToken", "false");
+        localStorage.setItem("adminLoggedIn", "false");
+        //alert(localStorage.setItem("adminToke"))
         window.location.href = '../view/index.html';
+        
         //.setAttribute('href', '../view/logIn.html');
  
      });
     }
 
+    if (cancelDeleteElection != null){
+      cancelDeleteElection.addEventListener("click", function(event){
+        event.preventDefault();
+        window.location.href = '../view/adminIndex.html';
+
+      })
+    }
+
+    if (cancelCreateElection != null){
+      cancelCreateElection.addEventListener("click", function(event){
+        event.preventDefault();
+        window.location.href = '../view/adminIndex.html';
+
+      })
+    }
+
+    if (cancelRegisterVoter != null){
+      cancelRegisterVoter.addEventListener("click", function(event){
+        event.preventDefault();
+        window.location.href = '../view/adminIndex.html';
+
+      })
+    }
+
 
     //Bar Logo
     if (navBarLogo != null){
-      navBarLogo.addEventListener("click", function(){
+      navBarLogo.addEventListener("click", function(event){
+        event.preventDefault();
         console.log("You clicked Home/Logo");
-        //alert(localStorage.getItem("adminLoggedIn"))
-        if (localStorage.getItem("adminLoggedIn")  == true || localStorage.getItem("adminLoggedIn") == "true"){
+
+        
+       // alert(localStorage.getItem("adminLoggedIn"))
+        if (localStorage.getItem("adminLoggedIn")  == true || localStorage.getItem("adminLoggedIn") == "true" ){
+           // alert("admin home")
             window.location.href = '../view/adminIndex.html';
         }
         else{
+           // alert("home home")
             window.location.href = '../view/index.html';
         }
       });
@@ -124,7 +165,7 @@ document.addEventListener(
     /*COMPLETE*/
     var verifyEmail = "false"; //i should make this boolean
     var verifyOTP = "false";
-    let email = ""; 
+    
     if (getOTPButton != null){    
         getOTPButton.addEventListener("click", function(event){
                 event.preventDefault();
@@ -388,22 +429,46 @@ document.addEventListener(
     if (deleteElection != null){
         deleteElection.addEventListener("click",function(event){
 
+          //alert(localStorage.getItem("adminEmail") )
+          //alert(localStorage.getItem("adminPassword"))
+          //alert(adminEmail.value)
+          //alert(password.value)
+          if (adminEmail.value == localStorage.getItem("adminEmail")  && password.value == localStorage.getItem("adminPassword")){
+              if (confirm('Are you sure you want to delete the current election?')) {
+            // Save it!
+            fetch('https://wekan-api.herokuapp.com/uwivotes/election/delete', {
+              method: 'DELETE',
+              headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("adminToken")
+              }
+            }).then(res => res.json())
+              .then(res => {console.log(res)
+                console.log("Election has been deleted")
+                //change message here when election doesn't exist
+                window.location.href = '../view/adminIndex.html';
+  
+  
+  
+              }) 
+            
+
+
+            
+          } else {
+            // Do nothing!
+            console.log('Election was not deleted');
+          }
+
+          }
+          else {
+            alert("Email and password incorrect")
+          }
+
+          
           //if email and password matches for admin, thet can delete election
-          fetch('https://wekan-api.herokuapp.com/uwivotes/election/delete', {
-            method: 'DELETE',
-            headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json',
-              'Authorization': localStorage.getItem("adminToken")
-            }
-          }).then(res => res.json())
-            .then(res => {console.log(res)
-              
-                          
-
-
-
-            })
+          
 
 
         })
@@ -440,7 +505,7 @@ document.addEventListener(
               var i = 0;
               while (result.message[i] != null) {
                   hallOptions.innerHTML +=  "<option value=\"" + result.message[i].hid + "\">" + result.message[i].hallName + "</option>";
-                  console.log(result.message[i].hallName)
+                  //console.log(result.message[i].hallName)
                   i++;
                 }
         }
@@ -449,7 +514,7 @@ document.addEventListener(
     
       }
 
-      function fillFacultyOptions(){
+    function fillFacultyOptions(){
         fetch("https://wekan-api.herokuapp.com/uwivotes/admin/faculties", {
           method: 'GET',
           headers: {
@@ -475,7 +540,7 @@ document.addEventListener(
       
         } 
 
-        function fillElectOptions(){
+    function fillElectOptions(){
           fetch("https://wekan-api.herokuapp.com/uwivotes/admin/positions", {
             method: 'GET',
             headers: {
@@ -593,7 +658,26 @@ document.addEventListener(
 
     if (registerVoterButton != null){
       registerVoterButton.addEventListener("click", function(event){
+        window.location.href = '../view/registerVoter.html';
 
+        
+
+      });
+    }
+
+    
+
+
+    if (registerVoter != null){
+      registerVoter.addEventListener("click", function(event){
+
+        //alert(facultyOptions.value);
+        //alert(commuteStatus.value)
+        console.log("email:",email.value)
+        console.log(hallOptions.value)
+        console.log(facultyOptions.value)
+        console.log(commuteStatus.value)
+        console.log(postGradStatus.value)
 
         fetch('https://wekan-api.herokuapp.com/uwivotes/admin/addVoter', {
                 method: 'POST',
@@ -603,36 +687,29 @@ document.addEventListener(
                   'Authorization': localStorage.getItem("adminToken")
                 },
                 body: JSON.stringify({
-
-                  "email": "kayvia.harriott@mymona.uwi.edu",
-                  "hall": 1,
-                  "faculty": 2,
-                  "doesCommute": false,
-                  "isPostGrad": false})
+                  "email": email.value,
+                  "hall": parseInt(hallOptions.value),
+                  "faculty":  parseInt(facultyOptions.value),
+                  "doesCommute": Boolean(commuteStatus.value),
+                  "isPostGrad": Boolean(postGradStatus.value)})
               }).then(res => res.json())
                 .then(res => {
                   
                   if (res.success == true){
-                    localStorage.setItem("adminLoggedIn", true);
-                    //alert(localStorage.getItem("adminLoggedIn"));
-                    localStorage.setItem("adminEmail",adminEmail.value)
-                    localStorage.setItem("adminPassword",password.value)
-                    localStorage.setItem("adminToken",res.token)
-                      window.location.href = '../view/adminIndex.html';
+                      alert("Voter has been registered")
+                      //window.location.href = '../view/adminIndex.html';
                   }
                   else {
-                    errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
+                    //errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
 
                   }
 
 
 
                 })
-
-      });
-    }
-
-
+      })
+     }
+    
     /**Helper Functions */
     function disableLink(linkName){
       //alert("Link off")

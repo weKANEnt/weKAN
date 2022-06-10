@@ -30,32 +30,46 @@
        </div>
 
        <div class="pageText">
-            <h2>Create New Election</h2>
+            <h2>Register New Voter</h2>
        </div>
     
         <div class="adminBody">
-            <h4>Polling Information</h4>
-
-            <label for="Polling Name">Polling Name</label><br>
-            <input class="input" type="text" id="electionName" placeholder="Enter Election Name Here"><br>
+            <h4>Voter Information</h4>
             
-            <label for="Start Date">Start Date (yyyy/mm/dd)</label><br>
-            <input class="input" type="text" id="startDate" placeholder="Start Date"><br>
-              
-            <label for="End Date">End Date (yyyy/mm/dd)</label><br>
-            <input class="input" type="text" id="endDate" placeholder="End Date"><br>
-              
-
-            <label for="Upload Student Emails">Upload Student Emails</label><br>
-            <input class="input" type="text" id="" placeholder="fileName.csv"><br>
+            <label for="email">Email</label><br>
+            <input class="input" type="text" id="email" placeholder="Email here"><br>    
             
-            <input id="uploadButton" class="redButton" type="submit" value="Upload">
-            <input id="downloadTemplateButton" class="redButton" type="submit" value="Download Template">
-            <br><br><br><br>
-            <input id="createElection" class="redButton" type="submit" value="Create Election">
-            <a href="#" class="redLink" id="cancelCreateElection">Cancel</a>
-            <div id="errorMessage"><i></i></div> <br>
+            <label for="hall">Attached Hall</label><br>
+            <select name="hallsOfLiving" id="hallsOfLivingDropdown">
+                
+            </select>
 
+            <br>
+            <label for="faculty">Faculty of Study</label><br>
+            <select name="facultyOfStudy" id="facultyOfStudyDropdown">
+
+            </select>
+
+
+            <br>
+            <label for="commuteStatus">Commuter</label><br>
+            <select name="commuteStatus" id="commuteStatus">
+                <option value = false>No</option>
+                <option value = true>Yes</option>
+            </select>
+
+            <br>
+            <label for="postGradStatus">Commuter</label><br>
+            <select name="postGradStatus" id="postGradStatus">
+                <option value = false>No</option>
+                <option value = true>Yes</option>
+            </select>
+
+
+            <br>
+            <input id="registerVoter" class="redButton" type="submit" value="Register Voter">
+            <a href="#" class="redLink" id="cancelRegisterVoter">Cancel</a>
+            
 
 
            <!-- <form> 
