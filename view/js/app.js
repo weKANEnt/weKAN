@@ -15,6 +15,7 @@ document.addEventListener(
     var errorMessage = document.getElementById("errorMessage");
     var errorMessageAdmin = document.getElementById("errorMessageAdmin");
     var logInButton = document.getElementById("logInButton"); //for admin
+    var logOut = document.getElementById("navLogOut");
     var password = document.getElementById("password"); //for admin
     var adminEmail = document.getElementById("adminEmail"); //for admin
     var createElectionButton = document.getElementById("createElectionButton"); //for admin
@@ -58,6 +59,17 @@ document.addEventListener(
  
      });
     }
+
+    if (logOut != null){
+      logOut.addEventListener("click", function(){
+        console.log("You clicked Sign In");
+        localStorage.setItem("adminToken", " ");
+        window.location.href = '../view/index.html';
+        //.setAttribute('href', '../view/logIn.html');
+ 
+     });
+    }
+
 
     //Bar Logo
     if (navBarLogo != null){
