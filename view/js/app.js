@@ -25,6 +25,19 @@ document.addEventListener(
     var endDate = document.getElementById("endDate");
     var deleteElectionButton = document.getElementById("adminDeleteButton");
     var deleteElection = document.getElementById("deleteElection");
+    var addCandidateButton = document.getElementById("addCandidateButton");
+    var addCandidate = document.getElementById("addCandidate");
+    var hallOptions = document.getElementById("hallsOfLivingDropdown");
+    var facultyOptions = document.getElementById("facultyOfStudyDropdown");
+    var electOptions = document.getElementById("electPositionsDropdown")
+
+    var candidateFirstName = document.getElementById("firstName");
+    var candidateLastName = document.getElementById("lastName");
+    var candidateEmail = document.getElementById("email");
+    var candidateAbout = document.getElementById("about");
+    var candidateAttachedHall = document.getElementById("hallsOfLivingDropdown");
+    var candidateFacultyOfStudy = document.getElementById("facultyOfStudyDropdown");
+    var candidateElectPosition = document.getElementById("electPositionsDropdown");
     }
 
     
@@ -389,6 +402,186 @@ document.addEventListener(
 
         })
 
+    }
+
+    if (addCandidateButton != null){
+        addCandidateButton.addEventListener("click", function(event){
+        event.preventDefault();
+        window.location.href = '../view/addCandidate.html';
+        
+        
+
+
+
+
+        })
+    }
+
+    function fillHallOptions(){
+      fetch("https://wekan-api.herokuapp.com/uwivotes/admin/halls", {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("adminToken")
+        }})
+          
+    
+  
+        
+        .then((response) => response.json())
+        .then((result) => {
+              var i = 0;
+              while (result.message[i] != null) {
+                  hallOptions.innerHTML +=  "<option value=\"" + result.message[i].hid + "\">" + result.message[i].hallName + "</option>";
+                  console.log(result.message[i].hallName)
+                  i++;
+                }
+        }
+            )
+        .catch((error) => console.log("error", error)); 
+    
+      }
+
+      function fillFacultyOptions(){
+        fetch("https://wekan-api.herokuapp.com/uwivotes/admin/faculties", {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem("adminToken")
+          }})
+            
+      
+    
+          
+          .then((response) => response.json())
+          .then((result) => {
+                var i = 0;
+                while (result.message[i] != null) {
+                    facultyOptions.innerHTML +=  "<option value=\"" + result.message[i].fid + "\">" + result.message[i].facultyName + "</option>";
+                    console.log(result.message[i].hallName)
+                    i++;
+                  }
+          }
+              )
+          .catch((error) => console.log("error", error)); 
+      
+        } 
+
+        function fillElectOptions(){
+          fetch("https://wekan-api.herokuapp.com/uwivotes/admin/positions", {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json',
+              'Authorization': localStorage.getItem("adminToken")
+            }})
+              
+        
+      
+            
+            .then((response) => response.json())
+            .then((result) => {
+                  var i = 0;
+                  while (result.message[i] != null) {
+                     electOptions.innerHTML +=  "<option value=\"" + result.message[i].pid + "\">" + result.message[i].positionTitle + "</option>";
+                    //  console.log(result.message[i])
+                      i++;
+                    }
+            }
+                )
+            .catch((error) => console.log("error", error)); 
+        
+          } 
+
+
+    if (hallOptions != null){
+      fillHallOptions();
+    }
+
+    if (facultyOptions != null){
+      fillFacultyOptions();
+    }
+
+    if (electOptions != null){
+      fillElectOptions();
+    }
+
+
+    if (addCandidate != null){
+        addCandidate.addEventListener("click", function(event){
+        event.preventDefault();
+        console.log('firstName', candidateFirstName.value)
+        console.log(  'lastName',candidateLastName.value)
+        console.log(   'email', candidateEmail.value)
+        console.log(   'hall', parseInt(candidateAttachedHall.value))
+        console.log(  'faculty', candidateFacultyOfStudy.value)
+        console.log(   'position', candidateElectPosition.value)
+        console.log(  'about', candidateAbout.value)
+        /*var candidateFirstName = document.getElementById("firstName");
+    var candidateLastName = document.getElementById("lastName");
+    var candidateEmail = document.getElementById("email");
+    var candidateAbout = document.getElementById("about");
+    var candidateAttachedHall = document.getElementById("hallsOfLivingDropdown");
+    var candidateFacultyOfStudy = document.getElementById("facultyOfStudyDropdown");
+    var candidateElectPosition = document.getElementById("electPositionsDropdown");*/
+        fetch('https://wekan-api.herokuapp.com/uwivotes/admin/addCandidate', {
+          method: 'POST',
+          headers: { 
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem("adminToken")
+          },
+          body: JSON.stringify({
+            "candidates":
+            [ {
+              
+              'firstName': candidateFirstName.value,
+              'lastName': candidateLastName.value,
+              'email': candidateEmail.value,
+              'hall': parseInt(candidateAttachedHall.value),
+              'faculty': parseInt(candidateFacultyOfStudy.value),
+              'position': parseInt(candidateElectPosition.value),
+              'about': candidateAbout.value 
+
+            }]
+            
+          
+          })
+
+            /*
+    firstName": "Noejlle",
+      "lastName": "Benjamin",
+      "email": "oliviaa.benjajkkkkmin@mymona.uwi.edu",
+      "hall": 1,
+      "faculty": 2,
+      "position": 1,
+      "about": "lorem test" 
+            */
+        }).then(res => res.json())
+          .then(res => {
+            
+            if (res.success == true){
+              console.log("candidate added")
+              console.log(res)
+              console.log(res.sucess)
+
+            }
+            else {
+              console.log("candidate not added")
+              //errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
+
+            }
+
+
+
+          })
+        
+       
+
+        
+        })
     }
 
 

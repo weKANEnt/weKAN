@@ -30,47 +30,46 @@
        </div>
 
        <div class="pageText">
-            <h2>Create New Election</h2>
+            <h2>Add New Candidate</h2>
        </div>
     
         <div class="adminBody">
-            <h4>Polling Information</h4>
-
-            <label for="Polling Name">Polling Name</label><br>
-            <input class="input" type="text" id="electionName" placeholder="Enter Election Name Here"><br>
-            
-            <label for="Start Date">Start Date</label><br>
-            <input class="input" type="text" id="startDate" placeholder="Start Date"><br>
-              
-            <label for="End Date">End Date</label><br>
-            <input class="input" type="text" id="endDate" placeholder="End Date"><br>
-              
-
-            <label for="Upload Student Emails">Polling Name</label><br>
-            <input class="input" type="text" id="" placeholder="fileName.csv"><br>
-            
-            <input id="uploadButton" class="redButton" type="submit" value="Upload">
-            <input id="downloadTemplateButton" class="redButton" type="submit" value="Download Template">
-                    
             <h4>Candidate Information</h4>
-            <label for="First Name">First Name</label><br>
-            <input class="input" type="text" id="" placeholder="First Name"><br>
-
-            <label for="Last Name">Last Name</label><br>
-            <input class="input" type="text" id="" placeholder="Last Name"><br>
             
-            <label for="Candidate Position">Candidate Position</label><br>
-            <select name="candidatePositions" id="candidatePositionsDropDown">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+            <label for="firstName">First Name</label><br>
+            <input class="input" type="text" id="firstName" placeholder="e.g. John"><br>
+            
+            <label for="lastName">Last Name</label><br>
+            <input class="input" type="text" id="lastName" placeholder="e.g. Brown"><br>
+              
+            <label for="email">Email</label><br>
+            <input class="input" type="text" id="email" placeholder="e.g. john.brown@mymona.uwi.edu"><br>
+              
+
+    
+            
+            <label for="hall">Attached Hall</label><br>
+            <select name="hallsOfLiving" id="hallsOfLivingDropdown">
+                
             </select>
 
+            <br>
+            <label for="faculty">Faculty of Study</label><br>
+            <select name="facultyOfStudy" id="facultyOfStudyDropdown">
+
+            </select>
+
+            <br>
+            <label for="position">Elect Position</label><br>
+            <select name="electPositions" id="electPositionsDropdown">
+
+            </select>
+
+            <br>
             <label for="About">About</label><br>
-            <input class="input" type="text" id="" placeholder="Enter the candidates' information...."><br>
+            <input class="input" type="text" id="about" placeholder="Enter the candidates' information...."><br>
            
-            <input id="createElection" class="redButton" type="submit" value="Create Election">
+            <input id="addCandidate" class="redButton" type="submit" value="Add Candidate">
             
 
 
