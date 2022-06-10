@@ -4,6 +4,7 @@ document.addEventListener(
     console.log("loaded page");
 
     /** Navbar buttons */
+    {
     var navCandidates = document.getElementById("navCandidates");
     var navResults = document.getElementById("navResults");
     var navSignIn = document.getElementById("navSignIn");
@@ -21,16 +22,11 @@ document.addEventListener(
     var electionName = document.getElementById("electionName"); //for admin
     var startDate =  document.getElementById("startDate");
     var endDate = document.getElementById("endDate");
+    var deleteElectionButton = document.getElementById("adminDeleteButton");
+    var deleteElection = document.getElementById("deleteElection");
+    }
 
-
-    //var email = document.getElementById("email");
-
-    var page1 = document.getElementById("page1Link");
-    var page2 = document.getElementById("page2Link");
     
-
-
-
     /**Button Listeners*/
     
     /**Pages*/
@@ -68,24 +64,15 @@ document.addEventListener(
       navBarLogo.addEventListener("click", function(){
         console.log("You clicked Home/Logo");
         if (localStorage.getItem("adminLoggedIn")  == true || localStorage.getItem("adminLoggedIn") == "true"){
-            //alert("1")
-            //alert(localStorage.getItem("adminLoggedIn"))
             window.location.href = '../view/adminIndex.html';
         }
         else{
-            //alert("2")
-            //alert(localStorage.getItem("adminLoggedIn"))
             window.location.href = '../view/index.html';
         }
-        
-        
-        //.setAttribute('href', '../view/index.html');
- 
-     });
+      });
     }
 
     /**Buttons */
-
     var requestOptions = {
       method: "GET",
       redirect: "follow",
@@ -217,7 +204,7 @@ document.addEventListener(
 
     /**Redirect to admin side upon succesfull admin verification */
     var verifyAdminEmail = ""; //should be boolean false
-    if (adminEmail && password != null){
+    if (adminEmail && password != null && logInButton != null){
         logInButton.addEventListener("click", function(event){
             event.preventDefault();
 
@@ -243,6 +230,7 @@ document.addEventListener(
                     //alert(localStorage.getItem("adminLoggedIn"));
                     localStorage.setItem("adminEmail",adminEmail.value)
                     localStorage.setItem("adminPassword",password.value)
+                    localStorage.setItem("adminToken",res.token)
                       window.location.href = '../view/adminIndex.html';
                   }
                   else {
@@ -286,69 +274,39 @@ document.addEventListener(
         createElection.addEventListener("click",function(event){
           //console.log(electionName.value.length)
 
-
-          fetch('https://wekan-api.herokuapp.com/uwivotes/admin/login', {
+          fetch('https://wekan-api.herokuapp.com/uwivotes/election/create', {
             method: 'POST',
             headers: {
               'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': localStorage.getItem("adminToken")
             },
             body: JSON.stringify({
-              'email': localStorage.getItem("adminEmail"),
-              "password": localStorage.getItem("adminPassword")})
+              'title': electionName.value,
+              'sDate': startDate.value,
+              'eDate': endDate.value,
+              'csvLocation': "naomi.csv"
+            }
+
+            //"UWI MONA Guild Election 2022",
+            //"sDate": "2022-06-10",
+            // "eDate": "2022-07-25",
+              
+              
+              
+              )
           }).then(res => res.json())
             .then(res => {
               
-                          if (res.success == true){
-                            localStorage.setItem("adminLoggedIn", true);
-                            //alert(localStorage.getItem("adminLoggedIn"));
-                            
-                            fetch('https://wekan-api.herokuapp.com/uwivotes/election/create', {
-                        method: 'POST',
-                        headers: {
-                          'Accept': 'application/json, text/plain, */*',
-                          'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                          'title': electionName.value,
-                          'sDate': startDate.value,
-                          'eDate': endDate.value,
-                          'csvLocation': "naomi.csv"
-                        }
-
-                        //"UWI MONA Guild Election 2022",
-                        //"sDate": "2022-06-10",
-                        // "eDate": "2022-07-25",
-                          
-                          
-                          
-                          )
-                      }).then(res => res.json())
-                        .then(res => {
-                          
-                          if (res.success == true){
-                            //localStorage.setItem("adminLoggedIn", true);
-                            //alert(localStorage.getItem("adminLoggedIn"));
-                            console.log(res.success)
-                            console.log("election created");
-                            window.location.href = '../view/adminIndex.html';
-                              //window.location.href = '../view/adminIndex.html';
-                          }
-                          else {
-                            errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
-
-                          }
-
-
-
-                        })
-
-
-
-                  
+              if (res.success == true){
+                //localStorage.setItem("adminLoggedIn", true);
+                //alert(localStorage.getItem("adminLoggedIn"));
+                console.log(res.success);
+                console.log("election created");
+                window.location.href = '../view/adminIndex.html';
+                  //window.location.href = '../view/adminIndex.html';
               }
               else {
-                console.log("adminFailed")
                 //errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
 
               }
@@ -390,7 +348,36 @@ document.addEventListener(
     }
 
 
+    if (deleteElectionButton != null){
+        deleteElectionButton.addEventListener("click", function(event){
+          window.location.href = '../view/deleteElection.html';
+        })
+    }
     
+    if (deleteElection != null){
+        deleteElection.addEventListener("click",function(event){
+
+          //if email and password matches for admin, thet can delete election
+          fetch('https://wekan-api.herokuapp.com/uwivotes/election/delete', {
+            method: 'DELETE',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json',
+              'Authorization': localStorage.getItem("adminToken")
+            }
+          }).then(res => res.json())
+            .then(res => {console.log(res)
+              
+                          
+
+
+
+            })
+
+
+        })
+
+    }
 
 
 

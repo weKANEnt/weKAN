@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>UWIVotes</title>
+    <link  rel="stylesheet" href="../view/css/styles.css" type="text/css">
+   <!-- <link rel="icon" href="imgs/bug.png"> -->
+    <script src="../view/js/app.js"></script>
+</head>
+ <!----> 
+ <!---cd Desktop/UWI\ 2022/SWEN3920/weKAN   -->
+<body> 
+    <div class="homePage"> <!-- <p>navbar</p> -->
+        <div class="nav">
+            <div class="navListLeft">
+                <!-- <p>left</p> -->
+                <ul>
+                    <li><a href="#"> <img id="navBarLogo" src="../view/imgs/UWIVotes.png" alt=""></a></li>
+                    <li><a href="#" id="navCandidates" class="redLink">Election</a></li>
+                    <li><a href="#" id="navResults" class="redLink">Edit Candidates</a></li>
+                </ul>
+            </div>
+            <div class="navListRight">
+                <!-- <p>right</p> -->
+                <ul>
+                    <a href="#" id="navLogOut" class="blackLink">Log Out</a>
+                </ul>
+            </div>
+       </div>
+
+       <div class="pageText">
+            <h2>Delete Existing Election</h2>
+            <h4>Are you sure you want to delete the running election? If so, confirm your email and password</h4>
+       </div>
+    
+        <div class="adminBody">
+            <label for="email">Email</label><br>
+            <input class="input" type="text" id="adminEmail" placeholder="johndoe@uwimona.edu.jm"><br>
+            <br>
+            <label for="password">Password</label><br>
+            <input class="input" type="password" id="password" placeholder="*******"><br>
+            <div id="errorMessageAdmin"><i></i></div> <br>
+            <br>
+            <input class="redButton" type="submit" id="deleteElection" value="Delete Election">
+            <a href="#" class="redLink">Cancel</a>
+
+
+
+           <!-- <form> 
+                <h4>Polling Information</h4>
+                <div class="poll">
+                    <div class="pollSec1">                   
+                        <label for="">Polling Name</label><br>
+                        <input class="input" type="text" id="" placeholder="Enter Election Name Here"><br>
+                    </div>
+                    <div class="pollSec2">
+                        <label for="">Start Date</label><br>
+                        <input class="input" type="text" id="pollSec2" placeholder="Start Date"><br>
+                    </div>
+                    <div class="pollSec3">
+                        <label for="">End Date</label><br>
+                        <input class="input" type="text" id="pollSec3" placeholder="End Date"><br>
+                    </div>
+                </div>
+                <br>
+
+                <div class="poll2">  
+                    <div class="pollSec4">                   
+                        <label for="">Upload Student CSV</label><br>
+                        <input class="input" type="text" id="" placeholder="Upload the students CSV file"><br>
+                    </div>
+                
+
+                    <div class="pollSec5">
+                        <br>
+                        <input id="uploadButton" class="redButton" type="submit" value="Upload">
+                        <input id="downloadTemplateButton" class="redButton" type="submit" value="Download Template">
+                    </div>
+                </div>
+                <br><br><br>
+
+
+
+
+
+                <h4>Candidate Information</h4>
+ 
+                <label for="email">Email</label><br>
+                <input class="input" type="text" id="email" placeholder="johndoe@uwimona.edu.jm"><br>
+
+                <div id="errorMessage"><i></i></div> <br>
+                <input id="getOTPButton" class="redButton" type="submit" value="Create Election">
+                <a href="#" class="redLink">Cancel</a>
+                
+            </form>
+        -->
+        </div>
+    
+       
+    </div>
+    
+    <aside>
+
+    </aside>
+
+</body>
+</html>
