@@ -13,6 +13,74 @@ html {
   margin: 0px;
 }
 
+.poll{
+  display: grid;
+  grid-template-areas:
+    "pollSec1   pollSec2  pollSec3";
+}
+.poll2{
+  display: grid;
+  grid-template-areas:
+    "pollSec4   pollSec5  end";
+}
+
+.pollSec1{
+  grid-area: pollSec1;
+}
+
+.pollSec2{
+  grid-area: pollSec2;
+  margin-left: -80px;
+  
+}
+
+#pollSec2{
+  max-width: 60px !important;
+  min-width: 60px !important;
+  
+}
+
+.pollSec3{
+  grid-area: pollSec3;
+  margin-left: -80px;
+}
+
+#pollSec3{
+  max-width: 60px !important;
+  min-width: 60px !important;
+}
+
+
+.pollSec5{
+  grid-area: pollSec5;
+  margin: -30px;
+  align-self:  center;
+  
+}
+
+.pollSec6{
+  align-self: center;
+  
+}
+
+#candidatePositionsDropDown{
+ /* 
+border: 1.5px solid #939393;
+background: #fafafa;
+width: 300px; 
+padding: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+
+  
+  
+  border-radius: 9px;
+  font-size: 12px;
+  */
+}
+
+
+
 .nav {
   grid-area: topBar;
   display: grid;

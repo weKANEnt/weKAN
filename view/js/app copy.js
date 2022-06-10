@@ -17,10 +17,10 @@ document.addEventListener(
     var password = document.getElementById("password"); //for admin
     var adminEmail = document.getElementById("adminEmail"); //for admin
     var createElectionButton = document.getElementById("createElectionButton"); //for admin
-    var createElection = document.getElementById("createElection");
     var electionName = document.getElementById("electionName"); //for admin
     var startDate =  document.getElementById("startDate");
     var endDate = document.getElementById("endDate");
+    var createElection = document.getElementById("createElection");
 
 
     //var email = document.getElementById("email");
@@ -80,7 +80,7 @@ document.addEventListener(
         
         
         //.setAttribute('href', '../view/index.html');
- 
+  
      });
     }
 
@@ -221,11 +221,10 @@ document.addEventListener(
         logInButton.addEventListener("click", function(event){
             event.preventDefault();
 
-
             if (adminEmail.value != null && adminEmail.value != " " && adminEmail.value != "" && adminEmail.value.length != 0
                 && password.value != null && password.value != " " && password.value != "" && password.value.length != 0){
                 console.log("Checking if Admin email valid");
-                
+
                 fetch('https://wekan-api.herokuapp.com/uwivotes/admin/login', {
                 method: 'POST',
                 headers: {
@@ -241,8 +240,6 @@ document.addEventListener(
                   if (res.success == true){
                     localStorage.setItem("adminLoggedIn", true);
                     //alert(localStorage.getItem("adminLoggedIn"));
-                    localStorage.setItem("adminEmail",adminEmail.value)
-                    localStorage.setItem("adminPassword",password.value)
                       window.location.href = '../view/adminIndex.html';
                   }
                   else {
@@ -282,115 +279,24 @@ document.addEventListener(
       })
     }
 
+    /*
     if (createElection != null){
-        createElection.addEventListener("click",function(event){
-          //console.log(electionName.value.length)
+      if (electionName != null && electionName != " "  && electionName.value > 10){
+        //Ensure that Election name is larger than 10 characters
 
-
-          fetch('https://wekan-api.herokuapp.com/uwivotes/admin/login', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              'email': localStorage.getItem("adminEmail"),
-              "password": localStorage.getItem("adminPassword")})
-          }).then(res => res.json())
-            .then(res => {
-              
-                          if (res.success == true){
-                            localStorage.setItem("adminLoggedIn", true);
-                            //alert(localStorage.getItem("adminLoggedIn"));
-                            
-                            fetch('https://wekan-api.herokuapp.com/uwivotes/election/create', {
-                        method: 'POST',
-                        headers: {
-                          'Accept': 'application/json, text/plain, */*',
-                          'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                          'title': electionName.value,
-                          'sDate': startDate.value,
-                          'eDate': endDate.value,
-                          'csvLocation': "naomi.csv"
-                        }
-
-                        //"UWI MONA Guild Election 2022",
-                        //"sDate": "2022-06-10",
-                        // "eDate": "2022-07-25",
-                          
-                          
-                          
-                          )
-                      }).then(res => res.json())
-                        .then(res => {
-                          
-                          if (res.success == true){
-                            //localStorage.setItem("adminLoggedIn", true);
-                            //alert(localStorage.getItem("adminLoggedIn"));
-                            console.log(res.success)
-                            console.log("election created");
-                            window.location.href = '../view/adminIndex.html';
-                              //window.location.href = '../view/adminIndex.html';
-                          }
-                          else {
-                            errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
-
-                          }
-
-
-
-                        })
-
-
-
-                  
-              }
-              else {
-                console.log("adminFailed")
-                //errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
-
-              }
-
-
-
-            })
-
-
-
-          
-
-        
-        /*  if (electionName.value.length > 10){
-              if (startDate.value.length > 10){
-                  if (endDate.value.length > 10){
-
-                    
-
-
-
-
-
-
-                  }
-                  else{
-                    errorMessage.innerHTML = "Ensure that the end date entered is appropriate.";
-
-                  }
-              }else{
-                errorMessage.innerHTML = "Ensure that the start date entered is appropriate.";
-
-              }
-          }
-          else{
-            errorMessage.innerHTML = "Ensure that the election name is appropriate.";
-          } */
-        } )
+        //Start date should be valid
+        if (startDate.value > 10 && endDate.value > 10){
+            //
+        }
+        else{
+//
+        }
     }
+    else{
+      //errorMessage
+    } 
 
-
-    
+    } */
 
 
 
