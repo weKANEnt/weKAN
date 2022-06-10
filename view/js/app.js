@@ -38,8 +38,10 @@ document.addEventListener(
     var candidateAttachedHall = document.getElementById("hallsOfLivingDropdown");
     var candidateFacultyOfStudy = document.getElementById("facultyOfStudyDropdown");
     var candidateElectPosition = document.getElementById("electPositionsDropdown");
+    var registerVoterButton = document.getElementById("registerVoterButton")
     }
 
+    localStorage.setItem("adminLoggedIn",false);
     
     /**Button Listeners*/
     
@@ -88,6 +90,7 @@ document.addEventListener(
     if (navBarLogo != null){
       navBarLogo.addEventListener("click", function(){
         console.log("You clicked Home/Logo");
+        //alert(localStorage.getItem("adminLoggedIn"))
         if (localStorage.getItem("adminLoggedIn")  == true || localStorage.getItem("adminLoggedIn") == "true"){
             window.location.href = '../view/adminIndex.html';
         }
@@ -139,7 +142,9 @@ document.addEventListener(
                     .then((result) => {
                         verifyEmail = result.success;
                         email = document.getElementById("email").value;
+
                         if (verifyEmail == true){  
+
                           localStorage.setItem("email", document.getElementById("email").value);
                           //email = localStorage.getItem("email");
                           //alert(email);
@@ -156,6 +161,7 @@ document.addEventListener(
                             .then((response) => {response.json()
                              
                               verifyEmail = "false";
+                              //alert("works")
                               window.location.href = '../view/logIn.html';
                               
                             })
@@ -585,6 +591,46 @@ document.addEventListener(
     }
 
 
+    if (registerVoterButton != null){
+      registerVoterButton.addEventListener("click", function(event){
+
+
+        fetch('https://wekan-api.herokuapp.com/uwivotes/admin/addVoter', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json',
+                  'Authorization': localStorage.getItem("adminToken")
+                },
+                body: JSON.stringify({
+
+                  "email": "kayvia.harriott@mymona.uwi.edu",
+                  "hall": 1,
+                  "faculty": 2,
+                  "doesCommute": false,
+                  "isPostGrad": false})
+              }).then(res => res.json())
+                .then(res => {
+                  
+                  if (res.success == true){
+                    localStorage.setItem("adminLoggedIn", true);
+                    //alert(localStorage.getItem("adminLoggedIn"));
+                    localStorage.setItem("adminEmail",adminEmail.value)
+                    localStorage.setItem("adminPassword",password.value)
+                    localStorage.setItem("adminToken",res.token)
+                      window.location.href = '../view/adminIndex.html';
+                  }
+                  else {
+                    errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
+
+                  }
+
+
+
+                })
+
+      });
+    }
 
 
     /**Helper Functions */
