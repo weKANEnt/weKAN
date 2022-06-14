@@ -15,6 +15,9 @@ document.addEventListener(
      * 7. Add upload excel sheet to get candidates info
      * 8. Add upload excel sheet for voters
      * 9. Add more criteria for error messages
+     * 10. When no election is made, need an error for OTP not being generated. Or have OTP not visible
+     * 11. Put criteria for date entered in polling information
+     * 12. Student shouldn't be able to vote if poll hasn't started
      */
     //NOTE: //Complete means that the main function has been completed
     //variables for buttons
@@ -540,6 +543,8 @@ document.addEventListener(
 
     
    
+
+
 
 
 
