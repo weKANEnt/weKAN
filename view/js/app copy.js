@@ -72,8 +72,6 @@ document.addEventListener(
       var getElectionResults = document.getElementById("getElectionResults");
       var getElectionResultsAdmin = document.getElementById("getElectionResultsAdmin")
 
-      var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
-
       var ballotOptions = document.getElementById("ballotOptions");
 
       var startStudentBallot = document.getElementById("startStudentBallott");
@@ -87,11 +85,6 @@ document.addEventListener(
       var verifyOTP = false;
 
       var electName = "";
-      var studentVote = [];
-
-      var candidatePositions = [
-        'presidents', 'vpssp', 'vppsi', 'secretary', 'treasurer', 'gcc',
-        'pro', 'ceac', 'eac', 'facultyrep', 'commuting', 'postgrad', 'hallchair','dhallchair']
 
       
     
@@ -362,14 +355,28 @@ document.addEventListener(
       for (i in candidatePositions){
         //console.log(candidatePositions[i])
         checkIfCandidatesEmpty(candidatePositions[i]);
+        
       } 
+      
+      if (localStorage.getItem("nextCandidate") == 1){
+        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
+       if (localStorage.getItem(candidatePositions[0]) == "true"){
+            console.log("Empty")
+            localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
+        }else{
+            console.log("Not empty")
+            loadCandidates(candidatePositions[0])
+            
+        } 
+      }
+
       
       //console.log("nextCandidate" + localStorage.getItem("nextCandidate") )
       //console.log("CandidatesNum: " + localStorage.getItem("nextCandidate"))
       //console.log(parseInt(localStorage.getItem("nextCandidate")) + 1)
 
-/*
 
+      
       if (localStorage.getItem("nextCandidate") == 1){
         console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
        if (localStorage.getItem(candidatePositions[0]) == "true"){
@@ -392,7 +399,6 @@ document.addEventListener(
          } 
        }
 
-       
        if (localStorage.getItem("nextCandidate") == 3){
         console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
         if (localStorage.getItem(candidatePositions[2]) == "true"){
@@ -404,21 +410,18 @@ document.addEventListener(
          } 
        }
 
-       
        if (localStorage.getItem("nextCandidate") == 4){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
+        console.log("Next candidate: " + localStorage.getItem("nextCandidate"))
         if (localStorage.getItem(candidatePositions[3]) == "true"){
              console.log("Empty")
              localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
          }else{
-          console.log("******NOT EMPTY CANDIDATE: " + candidatePositions[3])
-          
              console.log("Not empty")
+             checkIfCandidatesEmpty('secretary')
+             console.log(localStorage.getItem(candidatePositions[3]))
              loadCandidates(candidatePositions[3])
          } 
        }
-
-
 
        if (localStorage.getItem("nextCandidate") == 5){
         console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
@@ -541,11 +544,19 @@ document.addEventListener(
          } 
        }
 
-       */
-
        if (localStorage.getItem("nextCandidate") > 14){
         
         console.log("Ballot submitted")
+
+       }
+
+       if (localStorage.getItem("nextCandidate") > 14){
+        alert("done");
+      }
+
+
+
+
         /*console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
         if (localStorage.getItem(candidatePositions[13]) == "true"){
              console.log("Empty")
@@ -554,7 +565,7 @@ document.addEventListener(
              console.log("Not empty")
              loadCandidates(candidatePositions[13])
          } */
-       }
+      // }
       //console.log(">" + localStorage.getItem("nextCandidate"))      
       
      // if (localStorage.getItem("nextCandidate") == 1){
@@ -656,7 +667,46 @@ document.addEventListener(
   
 
   //checker();
-  
+  var studentVote = [];
+ if(nextButton != null){
+    nextButton.addEventListener("click", function(event){
+      event.preventDefault();
+      
+      
+
+      //everytime a vote is done
+      
+      //increase counter
+
+      var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
+      if (getSelectedValue != null){
+          localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate"))+1)
+          
+          //console.log(getSelectedValue.id);
+          if (studentVote.includes(parseInt(getSelectedValue.id)) == false){
+            studentVote.push(parseInt(getSelectedValue.id));
+          }
+          
+          
+    
+          localStorage.setItem("studentVote", JSON.stringify(studentVote));
+          console.log("Student Vote raw: ", studentVote);
+          console.log("Student Vote: " + localStorage.getItem("studentVote"));
+          console.log("Student Vote Final: " + JSON.parse(localStorage.studentVote));
+          checker();
+          //document.location.reload()
+
+      }else{
+        console.log("Please select an item")
+
+      }
+      alert("Done" + localStorage.getItem("nextCandidate") )
+      
+      
+    
+      });
+
+  }
 
   function resetBallot(){
       localStorage.setItem("nextCandidate",1);
@@ -741,30 +791,16 @@ document.addEventListener(
   })
     .then((response) => response.json())
     .then((result) => { 
-      //electTitle.innerHTML = "<h4>" + result.message + "</h4>";
-      //console.log(result.candidates.length)
-      //console.log("Candidate: " + result.candidates.length);
-     /* if (result.candidates.length == 0){
-
-      }*/
-      /* 
-      if (result.candidates.length > 0){
-        console.log(result.candidates.length)
-        localStorage.setItem("candidatesEmptyStatus", false)
-      }else{
-        localStorage.setItem("candidatesEmptyStatus", true)
-      }*/
-      //console.log("Results amount:  " + result.candidates.length)
-     // console.log("Length: " + result.candidates.length)
       //console.log("Result: " + result.message + " #: " + result.candidates.length);
       //console.log("Candidates Link: " + candidateLink);
-      //console.log("Length: " + result.candidates.length + " for " + candidateLink)
+      
+      /*
       if (result.candidates.length > 0){
         localStorage.setItem(candidateLink,false)
-      }
-      else{
-        localStorage.setItem(candidateLink,true)
-      }
+        console.log("eempty")
+
+      }*/
+      
       
     })
     .catch((error) => console.log("error", error));  
@@ -1201,108 +1237,6 @@ document.addEventListener(
       //re-enable link
     }
 
-
-    /**Voting */
-    var candidatesToRun = []
-    
-    function getCandidatesToRun(){
-      while (voting < 14){
-        checkIfCandidatesEmpty(candidatePositions[voting]);
-        if (localStorage.getItem(candidatePositions[voting]) != "true"){
-          //console.log(candidatePositions[voting] + " isn't empty")
-          candidatesToRun.push(candidatePositions[voting]);
-          //console.log(candidatesToRun)
-          //loadCandidates(candidatePositions[voting])
-          
-          //while option not selected
-        }
-
-
-        voting += 1;
-      }
-    }
-
-    var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked'); 
-    var voting = 0;
-    if(ballotOptions != null){
-      //console.log(candidatePositions.length)
-      getCandidatesToRun();
-      //console.log(candidatesToRun);
-
-      if (candidatesToRun != []){
-        console.log(candidatesToRun)
-        loadCandidates(candidatesToRun[0]);
-
-      }
-      /*if (localStorage.getItem("nextCandidate") == 1){
-        console.log("Start 1")
-      }*/
-
-
-      
-
-    }
-   
-    function loadTheVoting(){
-      if (candidatesToRun != []){
-        console.log(candidatesToRun)
-        loadCandidates(candidatesToRun[0]);
-        
-
-      }
-    }
-
-    var studentVote = [];
-    if(nextButton != null){
-      nextButton.addEventListener("click", function(event){
-        event.preventDefault();
-    var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
-        
-         
-        candidatesToRun.shift();
-        console.log(getSelectedValue.id)
-        //console.log(studentVote.includes(getSelectedValue.id) == false)
-
-        //if (studentVote.includes(getSelectedValue.id) == false){
-        console.log(studentVote.includes(parseInt(getSelectedValue.id)) == true);
-
-        if (studentVote.includes(parseInt(getSelectedValue.id)) != true){
-         studentVote.push(parseInt(getSelectedValue.id))
-        }
-
-        console.log(studentVote)
- 
-        if (getSelectedValue != null && candidatesToRun.length != 0){
-          loadCandidates(candidatesToRun[0]); 
-          
-          console.log(candidatesToRun);
-          
-          
-
-        }
-
-        
-        else if (candidatesToRun.length == 0){
-          console.log("Ballot has ended");
-          localStorage.setItem("voterBallot", JSON.stringify(studentVote))
-         // console.log(JSON.parselocalStorage.getItem("voterBallot"))
-         console.log(JSON.parse(localStorage.voterBallot));
-         //submitBallot();
-          window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
-
-        }
-          else{
-          console.log("Please select an item")
-          //console.log(getSelectedValue)
-
-        }
-         
-        
-        
-        
-        });
-  
-    }
 
     
    

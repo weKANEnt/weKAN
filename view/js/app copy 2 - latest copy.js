@@ -1,799 +1,362 @@
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-    console.log("loaded page");
+if (ballotOptions != null){
+  //Candidates - get President
+  //
+  console.log("Here")
+  console.log(localStorage.getItem("nextCandidate"))
 
-    /** Navbar buttons */
-    {
-    var navCandidates = document.getElementById("navCandidates");
-    var navResults = document.getElementById("navResults");
-    var navSignIn = document.getElementById("navSignIn");
-    var navBarLogo = document.getElementById("navBarLogo");
-    var getOTPButton = document.getElementById("getOTPButton");
-    var otpSignUp = document.getElementById("otpTextbox");
-    var submitOTPButton = document.getElementById("submitOTP");
-    var errorMessage = document.getElementById("errorMessage");
-    var errorMessageAdmin = document.getElementById("errorMessageAdmin");
-    var logInButton = document.getElementById("logInButton"); //for admin
-    var logOut = document.getElementById("navLogOut");
-    var password = document.getElementById("password"); //for admin
-    var adminEmail = document.getElementById("adminEmail"); //for admin
-    var createElectionButton = document.getElementById("createElectionButton"); //for admin
-    var createElection = document.getElementById("createElection");
-    var electionName = document.getElementById("electionName"); //for admin
-    var startDate =  document.getElementById("startDate");
-    var endDate = document.getElementById("endDate");
-    var deleteElectionButton = document.getElementById("adminDeleteButton");
-    var deleteElection = document.getElementById("deleteElection");
-    var addCandidateButton = document.getElementById("addCandidateButton");
-    var addCandidate = document.getElementById("addCandidate");
-    var hallOptions = document.getElementById("hallsOfLivingDropdown");
-    var facultyOptions = document.getElementById("facultyOfStudyDropdown");
-    var electOptions = document.getElementById("electPositionsDropdown")
-
-    var candidateFirstName = document.getElementById("firstName");
-    var candidateLastName = document.getElementById("lastName");
-    var candidateEmail = document.getElementById("email");
-    var email = document.getElementById("email");
-    var candidateAbout = document.getElementById("about");
-    var candidateAttachedHall = document.getElementById("hallsOfLivingDropdown");
-    var candidateFacultyOfStudy = document.getElementById("facultyOfStudyDropdown");
-    var candidateElectPosition = document.getElementById("electPositionsDropdown");
-    var registerVoterButton = document.getElementById("registerVoterButton")
-    var registerVoter = document.getElementById("registerVoter")
-
-    var cancelDeleteElection = document.getElementById("cancelDeleteElection");
-    var cancelCreateElection = document.getElementById("cancelCreateElection");
-    var cancelRegisterVoter = document.getElementById("cancelRegisterVoter");
-    var commuteStatus = document.getElementById("commuteStatus");
-    var postGradStatus = document.getElementById("postGradStatus");
-
-    }
-
-    //localStorage.setItem("adminLoggedIn",false);
-    
-    /**Button Listeners*/
-    
-    /**Pages*/
-    //Candidates
-    if (navCandidates != null){ 
-      navCandidates.addEventListener("click", function(){
-        console.log("You clicked Candidates");
-        window.location.href = '../view/candidates.html';
-     });
-    } 
-
-    //Sign In
-    if (navResults != null){
-      navResults.addEventListener("click", function(){
-        console.log("You clicked Results");
-        window.location.href = '../view/results.html';
-      });
-    }
-
-    //Sign In
-    if (navSignIn != null){
-      navSignIn.addEventListener("click", function(){
-        console.log("You clicked Sign In");
-        window.location.href = '../view/logIn.html';
-        //.setAttribute('href', '../view/logIn.html');
- 
-     });
-    }
-
-    if (logOut != null){
-      logOut.addEventListener("click", function(){
-        console.log("You clicked Sign In");
-        localStorage.setItem("adminToken", "false");
-        localStorage.setItem("adminLoggedIn", "false");
-        //alert(localStorage.setItem("adminToke"))
-        window.location.href = '../view/index.html';
-        
-        //.setAttribute('href', '../view/logIn.html');
- 
-     });
-    }
-
-    if (cancelDeleteElection != null){
-      cancelDeleteElection.addEventListener("click", function(event){
-        event.preventDefault();
-        window.location.href = '../view/adminIndex.html';
-
-      })
-    }
-
-    if (cancelCreateElection != null){
-      cancelCreateElection.addEventListener("click", function(event){
-        event.preventDefault();
-        window.location.href = '../view/adminIndex.html';
-
-      })
-    }
-
-    if (cancelRegisterVoter != null){
-      cancelRegisterVoter.addEventListener("click", function(event){
-        event.preventDefault();
-        window.location.href = '../view/adminIndex.html';
-
-      })
-    }
-
-
-    //Bar Logo
-    if (navBarLogo != null){
-      navBarLogo.addEventListener("click", function(event){
-        event.preventDefault();
-        console.log("You clicked Home/Logo");
-
-        
-       // alert(localStorage.getItem("adminLoggedIn"))
-        if (localStorage.getItem("adminLoggedIn")  == true || localStorage.getItem("adminLoggedIn") == "true" ){
-           // alert("admin home")
-            window.location.href = '../view/adminIndex.html';
-        }
-        else{
-           // alert("home home")
-            window.location.href = '../view/index.html';
-        }
-      });
-    }
-
-    /**Buttons */
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    var requestOptions2 = {
-      method: "PATCH",
-      redirect: "follow",
-    };
-
-    var requestOptions3 = {
-      method: "POST",
-      redirect: "follow",
-    };
- 
-      
-
-      
-    //Home/Index Form Submit
-    /**Redirect to logIn page upon sucessful email verification */
-    /*COMPLETE*/
-    var verifyEmail = "false"; //i should make this boolean
-    var verifyOTP = "false";
-    
-    if (getOTPButton != null){    
-        getOTPButton.addEventListener("click", function(event){
-                event.preventDefault();
-                if (document.getElementById("email").value != null || document.getElementById("email").value != " " || document.getElementById("email").value != ""){
-                    //naomi.benjamin@mymona.uwi.edu
-                    //kayvia.harriott@mymona.uwi.edu
-                    
-                   fetch("https://wekan-api.herokuapp.com/uwivotes/votes?email=" + document.getElementById("email").value, requestOptions)
-
-                   //localStorage.setItem("someVarKey", email);  
-                   
-                  
-                   
-                   .then((response) => response.json())
-                    .then((result) => {
-                        verifyEmail = result.success;
-                        email = document.getElementById("email").value;
-
-                        if (verifyEmail == true){  
-
-                          localStorage.setItem("email", document.getElementById("email").value);
-                          //email = localStorage.getItem("email");
-                          //alert(email);
-                           
-                            fetch('https://wekan-api.herokuapp.com/uwivotes/votes/OTP',{
-                            method: 'PATCH',
-                            body: JSON.stringify({
-                              "email": localStorage.getItem("email"),
-                            }),
-                            headers: {
-                              'Content-type': 'application/json; charset=UTF-8',
-                              },
-                            })
-                            .then((response) => {response.json()
-                             
-                              verifyEmail = "false";
-                              //alert("works")
-                              window.location.href = '../view/logIn.html';
-                              
-                            })
-                            .then((json) => console.log(json));
-                          
-                        } 
-                        else {
-                          
-                          errorMessage.innerHTML = "*Please ensure a valid UWI email is entered.";
-                        }
-                    }
-                        )
-                    .catch((error) => console.log("error", error)); 
-
-                    
-                  }
-                
-                console.log(verifyEmail);
-            });
-    }
-
-    /**Redirect to vote page upon sucessful otp verification */
-    /**COMPLETE */
-    if (submitOTPButton != null){
-        if (localStorage.getItem("email")!=null){
-          document.getElementById("email").value = localStorage.getItem("email");
-        }
-        submitOTPButton.addEventListener("click", function(event){
-            event.preventDefault();
-            
-            //should add more criterio for otp not being empty
-            if (otpSignUp.value.length != 0){ 
-                  //to do: email not saving from previous page
-                 // fetch("https://wekan-api.herokuapp.com/uwivotes/votes/OTP?otp=" + otpSignUp.value + "&email=" + "kayvia.harriott@mymona.uwi.edu", requestOptions)
-               //alert(localStorage.getItem("email"));
-                    fetch("https://wekan-api.herokuapp.com/uwivotes/votes/OTP?otp=" + otpSignUp.value + "&email=" + localStorage.getItem("email"), requestOptions)
-
-                  .then((response) => response.json())
-                  .then((result) => {
-                        //alert(otpSignUp.value);
-                        verifyOTP = result.success;
-                        console.log(otpSignUp.value)
-                        if (verifyOTP == true){
-                            console.log("OTP verified");
-                            //redirect to place vote
-                            verifyOTP = "false";
-                            window.location.href = '../view/voteIntroPage.html';
-                        }
-                        else{
-                            console.log("OTP didn't work");
-                        }
-                  }
-                      )
-                  .catch((error) => console.log("error", error)); 
-
-            }
-            else{
-              errorMessage.innerHTML = "*Please ensure an OTP is entered.";
-            }
-        });
-    }
-
-
-    /**Allow User to vote */
+ // localStorage.setItem("","");
 
 
 
 
- 
-
-
-    /**Redirect to admin side upon succesfull admin verification */
-    var verifyAdminEmail = ""; //should be boolean false
-    if (adminEmail && password != null && logInButton != null){
-        logInButton.addEventListener("click", function(event){
-            event.preventDefault();
-
-
-            if (adminEmail.value != null && adminEmail.value != " " && adminEmail.value != "" && adminEmail.value.length != 0
-                && password.value != null && password.value != " " && password.value != "" && password.value.length != 0){
-                console.log("Checking if Admin email valid");
-                
-                fetch('https://wekan-api.herokuapp.com/uwivotes/admin/login', {
-                method: 'POST',
-                headers: {
-                  'Accept': 'application/json, text/plain, */*',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  'email': adminEmail.value,
-                  "password": password.value})
-              }).then(res => res.json())
-                .then(res => {
-                  
-                  if (res.success == true){
-                    localStorage.setItem("adminLoggedIn", true);
-                    //alert(localStorage.getItem("adminLoggedIn"));
-                    localStorage.setItem("adminEmail",adminEmail.value)
-                    localStorage.setItem("adminPassword",password.value)
-                    localStorage.setItem("adminToken",res.token)
-                      window.location.href = '../view/adminIndex.html';
-                  }
-                  else {
-                    errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
-
-                  }
-
-
-
-                })
-                
-
-
-
-
-
-
-            }
-            else{
-              errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
-            }
+  if (localStorage.getItem("nextCandidate") == 1){
+        //localStorage.setItem("nextCandidate", 1)
+        console.log("Next Candidate #: " + localStorage.getItem("nextCandidate")) 
+         checkIfCandidatesEmpty('presidents')
+         console.log("Candidate empty status:" + localStorage.getItem("candidatesEmptyStatus"))
+         if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+             loadCandidates('presidents');
 
           
-
-
-        });
-    }
-  
-
-    if (createElectionButton != null){
-      createElectionButton.addEventListener("click", function(event){
-        event.preventDefault();
-        window.location.href = '../view/createElection.html';
-       
-        //
-        //put "Election successfuly created for short while then fade out"
-      })
-    }
-
-    if (createElection != null){
-        createElection.addEventListener("click",function(event){
-          //console.log(electionName.value.length)
-
-          fetch('https://wekan-api.herokuapp.com/uwivotes/election/create', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json',
-              'Authorization': localStorage.getItem("adminToken")
-            },
-            body: JSON.stringify({
-              'title': electionName.value,
-              'sDate': startDate.value,
-              'eDate': endDate.value,
-              'csvLocation': "naomi.csv"
-            }
-
-            //"UWI MONA Guild Election 2022",
-            //"sDate": "2022-06-10",
-            // "eDate": "2022-07-25",
-              
-              
-              
-              )
-          }).then(res => res.json())
-            .then(res => {
-              
-              if (res.success == true){
-                //localStorage.setItem("adminLoggedIn", true);
-                //alert(localStorage.getItem("adminLoggedIn"));
-                console.log(res.success);
-                console.log("election created");
-                window.location.href = '../view/adminIndex.html';
-                  //window.location.href = '../view/adminIndex.html';
-              }
-              else {
-                //errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
-
-              }
-
-
-
-            })
-
-
-
-          
-
-        
-        /*  if (electionName.value.length > 10){
-              if (startDate.value.length > 10){
-                  if (endDate.value.length > 10){
-
-                    
-
-
-
-
-
-
-                  }
-                  else{
-                    errorMessage.innerHTML = "Ensure that the end date entered is appropriate.";
-
-                  }
-              }else{
-                errorMessage.innerHTML = "Ensure that the start date entered is appropriate.";
-
-              }
           }
           else{
-            errorMessage.innerHTML = "Ensure that the election name is appropriate.";
-          } */
-        } )
-    }
-
-
-    if (deleteElectionButton != null){
-        deleteElectionButton.addEventListener("click", function(event){
-          window.location.href = '../view/deleteElection.html';
-        })
-    }
-    
-    if (deleteElection != null){
-        deleteElection.addEventListener("click",function(event){
-
-          //alert(localStorage.getItem("adminEmail") )
-          //alert(localStorage.getItem("adminPassword"))
-          //alert(adminEmail.value)
-          //alert(password.value)
-          if (adminEmail.value == localStorage.getItem("adminEmail")  && password.value == localStorage.getItem("adminPassword")){
-              if (confirm('Are you sure you want to delete the current election?')) {
-            // Save it!
-            fetch('https://wekan-api.herokuapp.com/uwivotes/election/delete', {
-              method: 'DELETE',
-              headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem("adminToken")
-              }
-            }).then(res => res.json())
-              .then(res => {console.log(res)
-                console.log("Election has been deleted")
-                //change message here when election doesn't exist
-                window.location.href = '../view/adminIndex.html';
-  
-  
-  
-              }) 
+            localStorage.setItem("nextCandidate",2)
             
-
-
-            
-          } else {
-            // Do nothing!
-            console.log('Election was not deleted');
           }
+  }
 
+  console.log(localStorage.getItem("nextCandidate"))
+  //Candidates - VP SSP
+  if (localStorage.getItem("nextCandidate") == 2 ){
+          checkIfCandidatesEmpty('vpssp')
+          if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+             loadCandidates('vpssp');
           }
-          else {
-            alert("Email and password incorrect")
+          else{
+            localStorage.setItem("nextCandidate",3)
           }
-
-          
-          //if email and password matches for admin, thet can delete election
-          
-
-
-        })
-
-    }
-
-    if (addCandidateButton != null){
-        addCandidateButton.addEventListener("click", function(event){
-        event.preventDefault();
-        window.location.href = '../view/addCandidate.html';
-        
-        
-
-
-
-
-        })
-    }
-
-    function fillHallOptions(){
-      fetch("https://wekan-api.herokuapp.com/uwivotes/admin/halls", {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem("adminToken")
-        }})
-          
-    
+  } 
+  console.log(localStorage.getItem("nextCandidate"))
   
+
+  //Candidates - VP PSI
+  if (localStorage.getItem("nextCandidate") == 3){
+    checkIfCandidatesEmpty('vppsi')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('vppsi');
+    }
+    else{
+      localStorage.setItem("nextCandidate",4)
+    }
+  } 
+/*
+  //Candidates - Secretary
+   if (parseInt(localStorage.getItem("nextCandidate")) == 4){
+    checkIfCandidatesEmpty('secretary')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('secretary');
+    }
+    else{
+      localStorage.setItem("nextCandidate",5)
+    }
+  } 
+
+  //Candidates - Treasurer
+  if (parseInt(localStorage.getItem("nextCandidate")) == 5){
+    checkIfCandidatesEmpty('treasurer')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('treasurer');
+    }
+    else{
+      localStorage.setItem("nextCandidate",6)
+    }
+  } 
+
+  //Candidates - GCC
+  if (parseInt(localStorage.getItem("nextCandidate")) == 6){
+    checkIfCandidatesEmpty('gcc')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('gcc');
+    }
+    else{
+      localStorage.setItem("nextCandidate",7)
+    }
+  } 
+
+  //Candidates - PRO
+  if (parseInt(localStorage.getItem("nextCandidate")) == 7){
+    checkIfCandidatesEmpty('pro')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('pro');
+    }
+    else{
+      localStorage.setItem("nextCandidate",8)
+    }
+  } 
+
+  //Candidates - CEAC
+  if (parseInt(localStorage.getItem("nextCandidate")) == 8){
+    checkIfCandidatesEmpty('ceac')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('ceac');
+    }
+    else{
+      localStorage.setItem("nextCandidate",9)
+    }
+  } 
+
+  //Candidates - EAC
+  if (parseInt(localStorage.getItem("nextCandidate")) == 9){
+    checkIfCandidatesEmpty('eac')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('eac');
+    }
+    else{
+      localStorage.setItem("nextCandidate",10)
+    }
+  } 
+
+  //Candidates - Faculty Rep
+  if (parseInt(localStorage.getItem("nextCandidate")) ==  10){
+    checkIfCandidatesEmpty('facultyrep')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('facultyrep');
+    }
+    else{
+      localStorage.setItem("nextCandidate",11)
+    }
+  } 
+
+  //Candidates - Commuting
+  if (parseInt(localStorage.getItem("nextCandidate")) == 11){
+    checkIfCandidatesEmpty('commuting')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('commuting');
+    }
+    else{
+      localStorage.setItem("nextCandidate",12)
+    }
+  } 
+
+  //Candidates - Post Graduate
+  if (parseInt(localStorage.getItem("nextCandidate")) == 12){
+    checkIfCandidatesEmpty('postgrad')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('postgrad');
+    }
+    else{
+      localStorage.setItem("nextCandidate",13)
+    }
+  } 
+
+  //Candidates - Hall Chair
+  if (parseInt(localStorage.getItem("nextCandidate")) == 13){
+    checkIfCandidatesEmpty('hallchair')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('hallchair');
+    }
+    else{
+      localStorage.setItem("nextCandidate",14)
+    }
+  } 
+
+  //Candidates - Deputy Hall Chair
+  if (parseInt(localStorage.getItem("nextCandidate")) == 14){
+    checkIfCandidatesEmpty('dhallchair')
+    if (localStorage.getItem("candidatesEmptyStatus") == "false"){
+       loadCandidates('dhallchair'); 
+    }
+    else{
+      localStorage.setItem("nextCandidate",15)
+    }
+  } 
+
+  //Submit Ballot
+  
+  if (parseInt(localStorage.getItem("nextCandidate")) == 15){
+    localStorage.setItem("nextCandidate",1);
+    console.log('NC:', localStorage.getItem("nextCandidate"))
+    //window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+    //document.location.reload()
+    //to be removed
+    
+    
+  } 
+  //localStorage.setItem("nextCandidate", 0);
+  //console.log("Next Candidate #: " + localStorage.getItem("nextCandidate")) 
+
+  */
+  
+
+
+}
+
+
+function resetBallot(){
+    localStorage.setItem("nextCandidate",1);
+}
+
+var candidateResults = "";
+function loadCandidates(candidateLink){
+  fetch(serverLink + "ballot/" + candidateLink , 
+{
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json',
+    'Authorization': localStorage.getItem("studentToken") //localStorage.getItem("adminToken")
+  }
+})
+  .then((response) => response.json())
+  .then((result) => {
+    electTitle.innerHTML = "<h4>" + result.message + "</h4>";
+    //console.log(result.candidates.length)
+    if (result.candidates.length > 0){
+
+      for (i in result.candidates){
+        let cid = result.candidates[i].cid;
+        let electFullName = result.candidates[i].firstName + result.candidates[i].lastName
+        electName = result.candidates[i].firstName + result.candidates[i].lastName;
         
-        .then((response) => response.json())
-        .then((result) => {
-              var i = 0;
-              while (result.message[i] != null) {
-                  hallOptions.innerHTML +=  "<option value=\"" + result.message[i].hid + "\">" + result.message[i].hallName + "</option>";
-                  //console.log(result.message[i].hallName)
-                  i++;
-                }
+        ballotOptions.innerHTML += 
+        
+          "<input type = \"radio\" id= '" + cid + "'name=" + "studentVotes" + " value= " + electFullName + " >" 
+          + "<label for=" + cid + ">    " + result.candidates[i].firstName + " " + result.candidates[i].lastName + "</label>"
+          ;
+        ballotOptions.innerHTML += "</br>" ;
         }
-            )
-        .catch((error) => console.log("error", error)); 
+    }else{
+
+    }
     
+  })
+  .catch((error) => console.log("error", error));  
+}
+
+function checkIfCandidatesEmpty(candidateLink){
+  fetch(serverLink + "ballot/" + candidateLink , 
+{
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json',
+    'Authorization': localStorage.getItem("studentToken") //localStorage.getItem("adminToken")
+  }
+})
+  .then((response) => response.json())
+  .then((result) => { 
+    electTitle.innerHTML = "<h4>" + result.message + "</h4>";
+    //console.log(result.candidates.length)
+    //console.log("Candidate: " + result.candidates.length);
+   /* if (result.candidates.length == 0){
+
+    }*/
+    if (result.candidates.length > 0){
+      localStorage.setItem("candidatesEmptyStatus", false)
+    }else{
+      localStorage.setItem("candidatesEmptyStatus", true)
+    }
+    
+  })
+  .catch((error) => console.log("error", error));  
+}
+
+
+
+
+
+
+
+
+  var test = [];
+  //localStorage.setItem("nextCandidate", 1);
+  localStorage.setItem("test", test)
+
+  if(nextButton != null){
+    nextButton.addEventListener("click", function(event){
+      event.preventDefault();
+      //clearLocalStorage("userVote");
+      var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');    
+      if (getSelectedValue != null){
+        console.log(getSelectedValue.id);
+        test[test.length] = parseInt(getSelectedValue.id);
+        console.log(test);
+   
+        localStorage.setItem("test", JSON.stringify(test));
+        console.log(JSON.parse(localStorage.test));
+
+        localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
+        //checker();
+        var tempVar = parseInt(localStorage.getItem("nextCandidate"))
+        //localStorage.setItem("nextCandidate", parseInt(tempVar) +1);
+
+        console.log(localStorage.getItem("nextCandidate"));
+        
+        //document.location.reload();
+
+
+      }
+      else{
+        console.log("Next candidate: " + localStorage.getItem("nextCandidate"));
+        console.log("Please select an item")
+      }
+      //test += 1;
+      
+
+      /*
+      test[test.length] = getSelectedValue.id;
+      console.log(test);
+
+
+      localStorage.setItem("test", JSON.stringify(parseInt(test)))
+      var newt = [];
+            newt = JSON.parse(localStorage.test);
+      console.log(JSON.parse(localStorage.test))
+      console.log(newt)*/
+      
+      /*console.log(newt)
+      console.log(getSelectedValue.id)*/
+      console.log('**********');
+      //console.log([test]);
+      
+      /*if (localStorage.getItem("userVote" != " ")){
+
+          localStorage.setItem("userVote", localStorage.getItem("userVote") + "," +getSelectedValue.id);
+          if(getSelectedValue != null) {   
+            console.log("Radio button value: " + getSelectedValue.id); 
+            console.log(localStorage.getItem("userVote"));
+          }
+      else{  
+        console.log("Nothing has been selected");  
+
       }
 
-    function fillFacultyOptions(){
-        fetch("https://wekan-api.herokuapp.com/uwivotes/admin/faculties", {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem("adminToken")
-          }})
-            
-      
-    
-          
-          .then((response) => response.json())
-          .then((result) => {
-                var i = 0;
-                while (result.message[i] != null) {
-                    facultyOptions.innerHTML +=  "<option value=\"" + result.message[i].fid + "\">" + result.message[i].facultyName + "</option>";
-                    console.log(result.message[i].hallName)
-                    i++;
-                  }
+        }
+
+
+
+        else{
+          localStorage.setItem("userVote", getSelectedValue.id);
+          if(getSelectedValue != null) {   
+            console.log("Radio button value: " + getSelectedValue.id); 
+            console.log(localStorage.getItem("userVote"));
           }
-              )
-          .catch((error) => console.log("error", error)); 
-      
-        } 
+      else{  
+        console.log("Nothing has been selected");  
+      } 
 
-    function fillElectOptions(){
-          fetch("https://wekan-api.herokuapp.com/uwivotes/admin/positions", {
-            method: 'GET',
-            headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json',
-              'Authorization': localStorage.getItem("adminToken")
-            }})
-              
-        
-      
-            
-            .then((response) => response.json())
-            .then((result) => {
-                  var i = 0;
-                  while (result.message[i] != null) {
-                     electOptions.innerHTML +=  "<option value=\"" + result.message[i].pid + "\">" + result.message[i].positionTitle + "</option>";
-                    //  console.log(result.message[i])
-                      i++;
-                    }
+
+
+        }
+        localStorage.setItem("userVote", localStorage.getItem("userVote") + "," +getSelectedValue.id);
+        if(getSelectedValue != null) {   
+              console.log("Radio button value: " + getSelectedValue.id); 
+              console.log(localStorage.getItem("userVote"));
             }
-                )
-            .catch((error) => console.log("error", error)); 
-        
-          } 
-
-
-    if (hallOptions != null){
-      fillHallOptions();
-    }
-
-    if (facultyOptions != null){
-      fillFacultyOptions();
-    }
-
-    if (electOptions != null){
-      fillElectOptions();
-    }
-
-
-    if (addCandidate != null){
-        addCandidate.addEventListener("click", function(event){
-        event.preventDefault();
-        console.log('firstName', candidateFirstName.value)
-        console.log(  'lastName',candidateLastName.value)
-        console.log(   'email', candidateEmail.value)
-        console.log(   'hall', parseInt(candidateAttachedHall.value))
-        console.log(  'faculty', candidateFacultyOfStudy.value)
-        console.log(   'position', candidateElectPosition.value)
-        console.log(  'about', candidateAbout.value)
-        /*var candidateFirstName = document.getElementById("firstName");
-    var candidateLastName = document.getElementById("lastName");
-    var candidateEmail = document.getElementById("email");
-    var candidateAbout = document.getElementById("about");
-    var candidateAttachedHall = document.getElementById("hallsOfLivingDropdown");
-    var candidateFacultyOfStudy = document.getElementById("facultyOfStudyDropdown");
-    var candidateElectPosition = document.getElementById("electPositionsDropdown");*/
-        fetch('https://wekan-api.herokuapp.com/uwivotes/admin/addCandidate', {
-          method: 'POST',
-          headers: { 
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem("adminToken")
-          },
-          body: JSON.stringify({
-            "candidates":
-            [ {
-              
-              'firstName': candidateFirstName.value,
-              'lastName': candidateLastName.value,
-              'email': candidateEmail.value,
-              'hall': parseInt(candidateAttachedHall.value),
-              'faculty': parseInt(candidateFacultyOfStudy.value),
-              'position': parseInt(candidateElectPosition.value),
-              'about': candidateAbout.value 
-
-            }]
-            
-          
-          })
-
-            /*
-    firstName": "Noejlle",
-      "lastName": "Benjamin",
-      "email": "oliviaa.benjajkkkkmin@mymona.uwi.edu",
-      "hall": 1,
-      "faculty": 2,
-      "position": 1,
-      "about": "lorem test" 
-            */
-        }).then(res => res.json())
-          .then(res => {
-            
-            if (res.success == true){
-              console.log("candidate added")
-              console.log(res)
-              console.log(res.sucess)
-
-            }
-            else {
-              console.log("candidate not added")
-              //errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
-
-            }
-
-
-
-          })
-        
-       
-
-        
-        })
-    }
-
-
-    if (registerVoterButton != null){
-      registerVoterButton.addEventListener("click", function(event){
-        window.location.href = '../view/registerVoter.html';
-
-        
-
+        else{  
+          console.log("Nothing has been selected");  
+        } */
       });
-    }
 
-    
-
-
-    if (registerVoter != null){
-      registerVoter.addEventListener("click", function(event){
-
-        //alert(facultyOptions.value);
-        //alert(commuteStatus.value)
-        console.log("email:",email.value)
-        console.log(hallOptions.value)
-        console.log(facultyOptions.value)
-        console.log(commuteStatus.value)
-        console.log(postGradStatus.value)
-
-        fetch('https://wekan-api.herokuapp.com/uwivotes/admin/addVoter', {
-                method: 'POST',
-                headers: {
-                  'Accept': 'application/json, text/plain, */*',
-                  'Content-Type': 'application/json',
-                  'Authorization': localStorage.getItem("adminToken")
-                },
-                body: JSON.stringify({
-                  "email": email.value,
-                  "hall": parseInt(hallOptions.value),
-                  "faculty":  parseInt(facultyOptions.value),
-                  "doesCommute": Boolean(commuteStatus.value),
-                  "isPostGrad": Boolean(postGradStatus.value)})
-              }).then(res => res.json())
-                .then(res => {
-                  
-                  if (res.success == true){
-                      alert("Voter has been registered")
-                      //window.location.href = '../view/adminIndex.html';
-                  }
-                  else {
-                    //errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
-
-                  }
-
-
-
-                })
-      })
-     }
-    
-    /**Helper Functions */
-    function disableLink(linkName){
-      //alert("Link off")
-      linkName.getElementById(id).style.visibility = "hidden";
-      //disable link
-    }
-
-    function enableLink(linkName){
-      //alert("Link on")
-      linkName.getElementById(id).style.visibility = "visible";
-      //re-enable link
-    }
-
-    /*
-    localStorage.setItem("email", document.getElementById("email").value);
-                              "email": localStorage.getItem("email") */
-
-
-
-
-
-    /**Else */
-
-    /**Verify email address format */
-
-
-
-    /**Redirect to OTP page once email verified
-     */
-
-
-
-
-
-
-
-
-
-/*
-    fetch('https://wekan-api.herokuapp.com/uwivotes/ballot/vpssp')
-                .then(function(response) {
-                    return result.candidates
-                    
-
-                }).then(function(body) {
-                    document.body.innerHTML += body
-                })*/
-
-/*
-                fetch('../view/page1.html')
-              .then(function(response) {
-                    return response.json()
-        }).then(function(body) {
-         body
-        })   */
-
-        /** //finnnalllll 
-    console.log("page loads");
-var requestOptions = {
-        method: "GET",
-        redirect: "follow",
-        };
-        fetch("https://wekan-api.herokuapp.com/uwivotes/ballot/vpssp", requestOptions)
-        .then((response) => response.json())
-        .then((result) => document.body.innerHTML += result.candidates[0].firstName)
-        .catch((error) => console.log("error", error));*/
-
-
-     /*     fetch('../view/page1.html')
-        .then(function(response) {
-        return response.text()
-      }).then(function(body) {
-        document.body.innerHTML = body
-      })*/
-
-
-        
-   /* if (page1 != null){
-        page1.addEventListener("click", function(){
-            //page2.setAttribute('href', '');
-            
-
-        })
-    }*/
-
-
-
-  },
-  false
-);
+  }
+ 

@@ -72,14 +72,18 @@ document.addEventListener(
       var getElectionResults = document.getElementById("getElectionResults");
       var getElectionResultsAdmin = document.getElementById("getElectionResultsAdmin")
 
-      var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
-
       var ballotOptions = document.getElementById("ballotOptions");
 
       var startStudentBallot = document.getElementById("startStudentBallott");
       var nextButton = document.getElementById("next");
 
       var electTitle = document.getElementById("electTitle");
+      var candidatePositions = [
+        'presidents', 'vpssp', 'vppsi', 'secretary', 'treasurer', 'gcc',
+        'pro', 'ceac', 'eac', 'facultyrep', 'commuting', 'postgrad', 'hallchair','dhallchair'
+
+  ]
+  
 
       var verifyAdminEmail = false;
       
@@ -88,10 +92,6 @@ document.addEventListener(
 
       var electName = "";
       var studentVote = [];
-
-      var candidatePositions = [
-        'presidents', 'vpssp', 'vppsi', 'secretary', 'treasurer', 'gcc',
-        'pro', 'ceac', 'eac', 'facultyrep', 'commuting', 'postgrad', 'hallchair','dhallchair']
 
       
     
@@ -257,414 +257,23 @@ document.addEventListener(
   });
 }
 
-  
-  function generateCandidateOptions(){
 
-    
-  }
-  var arrayToRun = [];
-  function getToVote(){
-      console.log("vote");
-      arrayToRun = []
-    //for (let i = 0 ; i < 13 ; ++i){
-      //console.log("here");
-      
-      checkIfCandidatesEmpty('presidents');
-      //console.log(localStorage.getItem("candidatesEmptyStatus"));
-      if (localStorage.getItem("candidatesEmptyStatus") == false){
-         arrayToRun.push(1);
-         console.log("Array: "+ arrayToRun)
-      }
-      
-      checkIfCandidatesEmpty('vpssp');
-      if (localStorage.getItem("candidatesEmptyStatus") == false){
-         arrayToRun.push(2);
-      }
-      checkIfCandidatesEmpty('vppsi');
-      if (localStorage.getItem("candidatesEmptyStatus") == false){
-         arrayToRun.push(3);
-      }
 
-      checkIfCandidatesEmpty('secretary');
-      if (localStorage.getItem("candidatesEmptyStatus") == false){
-        arrayToRun.push(4);
-      }
-      checkIfCandidatesEmpty('treasurer');
-      if (localStorage.getItem("candidatesEmptyStatus") == false){
-         arrayToRun.push(5);
-      }
-      /* 
-      checkIfCandidatesEmpty('gcc');
-      if (localStorage.getItem("candidatesEmptyStatus") == false){
-         arrayToRun.push(6);
-      }
-      checkIfCandidatesEmpty('pro');
-      if (localStorage.getItem("candidatesEmptyStatus") == "false"){
-         arrayToRun.push(7);
-      }
-      checkIfCandidatesEmpty('ceac');
-      if (localStorage.getItem("candidatesEmptyStatus") == "false"){
-         arrayToRun.push(8);
-      }
-      checkIfCandidatesEmpty('eac');
-      if (localStorage.getItem("candidatesEmptyStatus") == "false"){
-         arrayToRun.push(9);
-      }
-      checkIfCandidatesEmpty('facultyrep');
-      if (localStorage.getItem("candidatesEmptyStatus") == "false"){
-         arrayToRun.push(10);
-      }
-      checkIfCandidatesEmpty('commuting');
-      if (localStorage.getItem("candidatesEmptyStatus") == "false"){
-         arrayToRun.push[i];
-      }
-      checkIfCandidatesEmpty('postgrad');
-      if (localStorage.getItem("candidatesEmptyStatus") == "false"){
-         arrayToRun.push[i];
-      }
-      checkIfCandidatesEmpty('hallchair');
-      if (localStorage.getItem("candidatesEmptyStatus") == "false"){
-         arrayToRun.push[i];
-      }
-      checkIfCandidatesEmpty('dhallchair');
-      if (localStorage.getItem("candidatesEmptyStatus") == "false"){
-         arrayToRun.push[i];
-      }
-      */
-
-      
-
-    //}
-    console.log("To vote for: " + arrayToRun)
-  }
-  
-  var candidatePositions = [
-        'presidents', 'vpssp', 'vppsi', 'secretary', 'treasurer', 'gcc',
-        'pro', 'ceac', 'eac', 'facultyrep', 'commuting', 'postgrad', 'hallchair','dhallchair'
-
-  ]
-
-  function nextCandidate(){
-    localStorage.setItem("nextCandidate", parseInt(localStorage.getItem) + 1)
-  }
-  
-  if (localStorage.getItem("Yessss") == "here"){
-    checker();
-    localStorage.setItem("Yessss", "heres")
-  }
-
-  function checker(){
-    if (ballotOptions != null){
-      
-      //console.log(localStorage.getItem("nextCandidate"))
-     
-
-      for (i in candidatePositions){
-        //console.log(candidatePositions[i])
-        checkIfCandidatesEmpty(candidatePositions[i]);
-      } 
-      
-      //console.log("nextCandidate" + localStorage.getItem("nextCandidate") )
-      //console.log("CandidatesNum: " + localStorage.getItem("nextCandidate"))
-      //console.log(parseInt(localStorage.getItem("nextCandidate")) + 1)
-
-/*
-
-      if (localStorage.getItem("nextCandidate") == 1){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-       if (localStorage.getItem(candidatePositions[0]) == "true"){
-            console.log("Empty")
-            localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-        }else{
-            console.log("Not empty")
-            loadCandidates(candidatePositions[0])
-        } 
-      }
  
-      if (localStorage.getItem("nextCandidate") == 2){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[1]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[1])
-         } 
-       }
 
-       
-       if (localStorage.getItem("nextCandidate") == 3){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[2]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[2])
-         } 
-       }
-
-       
-       if (localStorage.getItem("nextCandidate") == 4){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[3]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-          console.log("******NOT EMPTY CANDIDATE: " + candidatePositions[3])
-          
-             console.log("Not empty")
-             loadCandidates(candidatePositions[3])
-         } 
-       }
-
-
-
-       if (localStorage.getItem("nextCandidate") == 5){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[4]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[4])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 6){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[5]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[5])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 7){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[6]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[6])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 8){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[7]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[7])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 9){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[8]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[8])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 10){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[9]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[9])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 11){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[10]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[10])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 11){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[10]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[10])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 12){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[11]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[11])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 13){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[12]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[12])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 14){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[13]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[13])
-         } 
-       }
-
-       */
-
-       if (localStorage.getItem("nextCandidate") > 14){
-        
-        console.log("Ballot submitted")
-        /*console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[13]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[13])
-         } */
-       }
-      //console.log(">" + localStorage.getItem("nextCandidate"))      
-      
-     // if (localStorage.getItem("nextCandidate") == 1){
-      //  console.log("In presidents");
-       // console.log(localStorage.getItem("presidents") == "false")
-
-          /*{
-        }
-        else{
-            console.log("other");
-        } */
-           /*if (localStorage.getItem("presidents") == "true"){
-              loadCandidates("presidents");
-            }else{
-              console.log("nothing for president");
-          } */
-     // }
-
-
-/*
-      if (localStorage.getItem("vpssp") == "true"
-           && localStorage.getItem("nextCandidate") == 2){
-        loadCandidates("vpssp");
-      }
-
-      if (localStorage.getItem("vppsi") == "true"
-           && localStorage.getItem("nextCandidate") == 3){
-        loadCandidates("vppsi");
-      }
-      
-      if (localStorage.getItem("secretary") == "true"
-           && localStorage.getItem("nextCandidate") == 4){
-        loadCandidates("secretary");
-      }
-
-      if (localStorage.getItem("treasurer") == "true"
-           && localStorage.getItem("nextCandidate") == 5){
-        loadCandidates("treasurer");
-     }
-
-      if (localStorage.getItem("gcc") == "true"
-           && localStorage.getItem("nextCandidate") == 6){
-        loadCandidates("gcc");
-      }
-
-      if (localStorage.getItem("pro") == "true"
-           && localStorage.getItem("nextCandidate") == 7){
-        loadCandidates("pro");
-      }
-
-      if (localStorage.getItem("ceac") == "true"
-           && localStorage.getItem("nextCandidate") == 8){
-        loadCandidates("ceac");
-      }
-
-      if (localStorage.getItem("eac") == "true"
-           && localStorage.getItem("nextCandidate") == 9){
-        loadCandidates("eac");
-      }
-
-      if (localStorage.getItem("facultyrep") == "true"
-           && localStorage.getItem("nextCandidate") == 10){
-        loadCandidates("facultyrep");
-      }
-
-      if (localStorage.getItem("commuting") == "true"
-           && localStorage.getItem("nextCandidate") == 11){
-        loadCandidates("commuting");
-      }
-
-      if (localStorage.getItem("postgrad") == "true"
-           && localStorage.getItem("nextCandidate") == 12){
-        loadCandidates("postgrad");
-      }
-
-      if (localStorage.getItem("hallchair") == "true"
-           && localStorage.getItem("nextCandidate") == 13){
-        loadCandidates("hallchair");
-      }
-
-      if (localStorage.getItem("dhallchair") == "true"
-           && localStorage.getItem("nextCandidate") == 14){
-        loadCandidates("dhallchair");
-      }
-
-*/
-      //if (localStorage.getItem("nextCandidate") > 14){
-       //   console.log("Ballot submitted")
-          //submitBallot();
-          //window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
-      //}
-
-
-      
-  
-    }
-
-  }
   
 
-  //checker();
   
+
+
+  
+ 
 
   function resetBallot(){
       localStorage.setItem("nextCandidate",1);
   }
 
 
-
-  
   function submitBallot(){
                           console.log([JSON.parse(localStorage.studentVote)])
                           fetch(serverLink + 'ballot/submitBallot',{
@@ -747,7 +356,7 @@ document.addEventListener(
      /* if (result.candidates.length == 0){
 
       }*/
-      /* 
+      /*
       if (result.candidates.length > 0){
         console.log(result.candidates.length)
         localStorage.setItem("candidatesEmptyStatus", false)
@@ -758,12 +367,8 @@ document.addEventListener(
      // console.log("Length: " + result.candidates.length)
       //console.log("Result: " + result.message + " #: " + result.candidates.length);
       //console.log("Candidates Link: " + candidateLink);
-      //console.log("Length: " + result.candidates.length + " for " + candidateLink)
       if (result.candidates.length > 0){
         localStorage.setItem(candidateLink,false)
-      }
-      else{
-        localStorage.setItem(candidateLink,true)
       }
       
     })
@@ -868,22 +473,6 @@ document.addEventListener(
         window.location.href = directoryLinkAddress + 'adminIndex.html';
       })
     }
-
-    /**Redirect to admin index/homepage upon successfully creating  */
-    //Complete
-
-    /*
-    var tele = document.getElementById("startDate");
-    tele.maxLength = 9;
-    tele.type = "tel";
-    
-
-          document.getElementById("startDate").addEventListener('keyup', function(e){
-        if (event.key != 'Backspace' && (tele.value.length === 4 || tele.value.length === 7 || tele.value.length === 10)){
-        tele.value += '-';
-        console.log("here");
-      }
-    }); */
     
 
 
@@ -1202,114 +791,10 @@ document.addEventListener(
     }
 
 
-    /**Voting */
-    var candidatesToRun = []
     
-    function getCandidatesToRun(){
-      while (voting < 14){
-        checkIfCandidatesEmpty(candidatePositions[voting]);
-        if (localStorage.getItem(candidatePositions[voting]) != "true"){
-          //console.log(candidatePositions[voting] + " isn't empty")
-          candidatesToRun.push(candidatePositions[voting]);
-          //console.log(candidatesToRun)
-          //loadCandidates(candidatePositions[voting])
-          
-          //while option not selected
-        }
 
-
-        voting += 1;
-      }
-    }
-
-    var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked'); 
-    var voting = 0;
-    if(ballotOptions != null){
-      //console.log(candidatePositions.length)
-      getCandidatesToRun();
-      //console.log(candidatesToRun);
-
-      if (candidatesToRun != []){
-        console.log(candidatesToRun)
-        loadCandidates(candidatesToRun[0]);
-
-      }
-      /*if (localStorage.getItem("nextCandidate") == 1){
-        console.log("Start 1")
-      }*/
-
-
-      
-
-    }
-   
-    function loadTheVoting(){
-      if (candidatesToRun != []){
-        console.log(candidatesToRun)
-        loadCandidates(candidatesToRun[0]);
-        
-
-      }
-    }
-
-    var studentVote = [];
-    if(nextButton != null){
-      nextButton.addEventListener("click", function(event){
-        event.preventDefault();
-    var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
-        
-         
-        candidatesToRun.shift();
-        console.log(getSelectedValue.id)
-        //console.log(studentVote.includes(getSelectedValue.id) == false)
-
-        //if (studentVote.includes(getSelectedValue.id) == false){
-        console.log(studentVote.includes(parseInt(getSelectedValue.id)) == true);
-
-        if (studentVote.includes(parseInt(getSelectedValue.id)) != true){
-         studentVote.push(parseInt(getSelectedValue.id))
-        }
-
-        console.log(studentVote)
- 
-        if (getSelectedValue != null && candidatesToRun.length != 0){
-          loadCandidates(candidatesToRun[0]); 
-          
-          console.log(candidatesToRun);
-          
-          
-
-        }
-
-        
-        else if (candidatesToRun.length == 0){
-          console.log("Ballot has ended");
-          localStorage.setItem("voterBallot", JSON.stringify(studentVote))
-         // console.log(JSON.parselocalStorage.getItem("voterBallot"))
-         console.log(JSON.parse(localStorage.voterBallot));
-         //submitBallot();
-          window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
-
-        }
-          else{
-          console.log("Please select an item")
-          //console.log(getSelectedValue)
-
-        }
-         
-        
-        
-        
-        });
-  
-    }
 
     
-   
-
-
-
-
 
 
 
