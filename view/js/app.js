@@ -66,12 +66,12 @@ document.addEventListener(
       var cancelRegisterVoter = document.getElementById("cancelRegisterVoter");
       var commuteStatus = document.getElementById("commuteStatus");
       var postGradStatus = document.getElementById("postGradStatus");
-      var generateElectionResults = document.getElementById("generateElectionResults");
+      var generateElectionResults = document.getElementById("generateElectionResult");
       var postElectionResults = document.getElementById("postElectionResults");
       var retractElectionResults = document.getElementById("retractElectionResults");
       var getElectionResults = document.getElementById("getElectionResults");
       var getElectionResultsAdmin = document.getElementById("getElectionResultsAdmin")
-
+      var electionResultAdminSection = document.getElementById('electionResultsAdmin')
       var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
 
       var ballotOptions = document.getElementById("ballotOptions");
@@ -355,301 +355,12 @@ document.addEventListener(
 
   function checker(){
     if (ballotOptions != null){
-      
-      //console.log(localStorage.getItem("nextCandidate"))
-     
-
       for (i in candidatePositions){
-        //console.log(candidatePositions[i])
         checkIfCandidatesEmpty(candidatePositions[i]);
-      } 
-      
-      //console.log("nextCandidate" + localStorage.getItem("nextCandidate") )
-      //console.log("CandidatesNum: " + localStorage.getItem("nextCandidate"))
-      //console.log(parseInt(localStorage.getItem("nextCandidate")) + 1)
-
-/*
-
-      if (localStorage.getItem("nextCandidate") == 1){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-       if (localStorage.getItem(candidatePositions[0]) == "true"){
-            console.log("Empty")
-            localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-        }else{
-            console.log("Not empty")
-            loadCandidates(candidatePositions[0])
-        } 
       }
- 
-      if (localStorage.getItem("nextCandidate") == 2){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[1]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[1])
-         } 
-       }
-
-       
-       if (localStorage.getItem("nextCandidate") == 3){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[2]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[2])
-         } 
-       }
-
-       
-       if (localStorage.getItem("nextCandidate") == 4){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[3]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-          console.log("******NOT EMPTY CANDIDATE: " + candidatePositions[3])
-          
-             console.log("Not empty")
-             loadCandidates(candidatePositions[3])
-         } 
-       }
-
-
-
-       if (localStorage.getItem("nextCandidate") == 5){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[4]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[4])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 6){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[5]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[5])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 7){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[6]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[6])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 8){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[7]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[7])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 9){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[8]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[8])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 10){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[9]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[9])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 11){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[10]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[10])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 11){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[10]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[10])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 12){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[11]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[11])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 13){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[12]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[12])
-         } 
-       }
-
-       if (localStorage.getItem("nextCandidate") == 14){
-        console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[13]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[13])
-         } 
-       }
-
-       */
-
-       if (localStorage.getItem("nextCandidate") > 14){
-        
-        console.log("Ballot submitted")
-        /*console.log("Next candidate:" + localStorage.getItem("nextCandidate"))
-        if (localStorage.getItem(candidatePositions[13]) == "true"){
-             console.log("Empty")
-             localStorage.setItem("nextCandidate", parseInt(localStorage.getItem("nextCandidate")) + 1);
-         }else{
-             console.log("Not empty")
-             loadCandidates(candidatePositions[13])
-         } */
-       }
-      //console.log(">" + localStorage.getItem("nextCandidate"))      
-      
-     // if (localStorage.getItem("nextCandidate") == 1){
-      //  console.log("In presidents");
-       // console.log(localStorage.getItem("presidents") == "false")
-
-          /*{
-        }
-        else{
-            console.log("other");
-        } */
-           /*if (localStorage.getItem("presidents") == "true"){
-              loadCandidates("presidents");
-            }else{
-              console.log("nothing for president");
-          } */
-     // }
-
-
-/*
-      if (localStorage.getItem("vpssp") == "true"
-           && localStorage.getItem("nextCandidate") == 2){
-        loadCandidates("vpssp");
+      if (localStorage.getItem("nextCandidate") > 14){
+      console.log("Ballot submitted")
       }
-
-      if (localStorage.getItem("vppsi") == "true"
-           && localStorage.getItem("nextCandidate") == 3){
-        loadCandidates("vppsi");
-      }
-      
-      if (localStorage.getItem("secretary") == "true"
-           && localStorage.getItem("nextCandidate") == 4){
-        loadCandidates("secretary");
-      }
-
-      if (localStorage.getItem("treasurer") == "true"
-           && localStorage.getItem("nextCandidate") == 5){
-        loadCandidates("treasurer");
-     }
-
-      if (localStorage.getItem("gcc") == "true"
-           && localStorage.getItem("nextCandidate") == 6){
-        loadCandidates("gcc");
-      }
-
-      if (localStorage.getItem("pro") == "true"
-           && localStorage.getItem("nextCandidate") == 7){
-        loadCandidates("pro");
-      }
-
-      if (localStorage.getItem("ceac") == "true"
-           && localStorage.getItem("nextCandidate") == 8){
-        loadCandidates("ceac");
-      }
-
-      if (localStorage.getItem("eac") == "true"
-           && localStorage.getItem("nextCandidate") == 9){
-        loadCandidates("eac");
-      }
-
-      if (localStorage.getItem("facultyrep") == "true"
-           && localStorage.getItem("nextCandidate") == 10){
-        loadCandidates("facultyrep");
-      }
-
-      if (localStorage.getItem("commuting") == "true"
-           && localStorage.getItem("nextCandidate") == 11){
-        loadCandidates("commuting");
-      }
-
-      if (localStorage.getItem("postgrad") == "true"
-           && localStorage.getItem("nextCandidate") == 12){
-        loadCandidates("postgrad");
-      }
-
-      if (localStorage.getItem("hallchair") == "true"
-           && localStorage.getItem("nextCandidate") == 13){
-        loadCandidates("hallchair");
-      }
-
-      if (localStorage.getItem("dhallchair") == "true"
-           && localStorage.getItem("nextCandidate") == 14){
-        loadCandidates("dhallchair");
-      }
-
-*/
-      //if (localStorage.getItem("nextCandidate") > 14){
-       //   console.log("Ballot submitted")
-          //submitBallot();
-          //window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
-      //}
-
-
-      
-  
     }
 
   }
@@ -678,14 +389,16 @@ document.addEventListener(
                             'Authorization': localStorage.getItem("studentToken"),
                             },
                           })
-                          .then((response) => {response.json()
-                            if (response.message == success){
-                              alert("You have voted")
+                          .then(res => res.json())
+                          .then(res => {
+                            if (res.message == "Vote already recorded for given email"){
+                              
+                              alert("Sorry! You've already placed your vote. Please wait until the results are released.")
                             }
-                            //verifyEmail = false;
-                            //window.location.href = directoryLinkAddress + 'logIn.html';
+                              
                           })
-                          .then((json) => console.log(json));
+                          .catch(err => console.error())
+                         
      } 
           
   
@@ -741,24 +454,7 @@ document.addEventListener(
   })
     .then((response) => response.json())
     .then((result) => { 
-      //electTitle.innerHTML = "<h4>" + result.message + "</h4>";
-      //console.log(result.candidates.length)
-      //console.log("Candidate: " + result.candidates.length);
-     /* if (result.candidates.length == 0){
-
-      }*/
-      /* 
-      if (result.candidates.length > 0){
-        console.log(result.candidates.length)
-        localStorage.setItem("candidatesEmptyStatus", false)
-      }else{
-        localStorage.setItem("candidatesEmptyStatus", true)
-      }*/
-      //console.log("Results amount:  " + result.candidates.length)
-     // console.log("Length: " + result.candidates.length)
-      //console.log("Result: " + result.message + " #: " + result.candidates.length);
-      //console.log("Candidates Link: " + candidateLink);
-      //console.log("Length: " + result.candidates.length + " for " + candidateLink)
+      //alert("Candidates length for: " + candidateLink + " is this length: " + result.candidates.length)
       if (result.candidates.length > 0){
         localStorage.setItem(candidateLink,false)
       }
@@ -1050,6 +746,7 @@ document.addEventListener(
     if (generateElectionResults != null){
       generateElectionResults.addEventListener("click", function(event){
         event.preventDefault();
+        alert("Yes")
 
         fetch(serverLink + 'election/results', {
           method: 'POST',
@@ -1059,11 +756,8 @@ document.addEventListener(
             'Authorization': localStorage.getItem("adminToken")
           },
           body: JSON.stringify({
-            "email": email.value,
-            "hall": parseInt(hallOptions.value),
-            "faculty":  parseInt(facultyOptions.value),
-            "doesCommute": Boolean(commuteStatus.value),
-            "isPostGrad": Boolean(postGradStatus.value)})
+            
+          })
         })
         .then(res => res.json())
           .then(res => {
@@ -1110,12 +804,48 @@ document.addEventListener(
     if (getElectionResultsAdmin != null){
       getElectionResultsAdmin.addEventListener("click", function(event){
         event.preventDefault();
+        window.location.href = directoryLinkAddress + 'electionResultsAdmin.html';
 
 
       })
     }
 
+    function generateElectionResult(){
+
+    }
   
+    
+    function getElectionResultsAdmin2(){
+        console.log("fucntion here")
+
+    }
+    
+    function getElectionResultsAdmin2f(){
+
+      fetch(serverLink + "election/admin/results", {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("adminToken")
+        }})
+        .then((response) => response.json())
+        .then((result) => {
+              var i = 0;
+              while (result.results[i] != null) {
+                  electionResultAdminSection.innerHTML += "<br>" + result.results[i].name;
+                  i++;
+                }
+        })
+        .catch((error) => console.log("error", error)); 
+    }
+
+    if (electionResultAdminSection != null){
+      electionResultAdminSection.innerHTML = "Yes";
+      getElectionResultsAdmin2f();
+      electionResultAdminSection.innerHTML = "Yees";
+    }
+
     /**Functions */
     //Fill the drop down box with hall/living options
     //Complete
@@ -1225,19 +955,13 @@ document.addEventListener(
     var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked'); 
     var voting = 0;
     if(ballotOptions != null){
-      //console.log(candidatePositions.length)
       getCandidatesToRun();
-      //console.log(candidatesToRun);
 
       if (candidatesToRun != []){
         console.log(candidatesToRun)
         loadCandidates(candidatesToRun[0]);
 
       }
-      /*if (localStorage.getItem("nextCandidate") == 1){
-        console.log("Start 1")
-      }*/
-
 
       
 
@@ -1260,10 +984,6 @@ document.addEventListener(
         
          
         candidatesToRun.shift();
-        console.log(getSelectedValue.id)
-        //console.log(studentVote.includes(getSelectedValue.id) == false)
-
-        //if (studentVote.includes(getSelectedValue.id) == false){
         console.log(studentVote.includes(parseInt(getSelectedValue.id)) == true);
 
         if (studentVote.includes(parseInt(getSelectedValue.id)) != true){
@@ -1286,8 +1006,9 @@ document.addEventListener(
           console.log("Ballot has ended");
           localStorage.setItem("voterBallot", JSON.stringify(studentVote))
          // console.log(JSON.parselocalStorage.getItem("voterBallot"))
+         alert(localStorage.voterBallot)
          console.log(JSON.parse(localStorage.voterBallot));
-         //submitBallot();
+          submitBallot();
           window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
 
         }
@@ -1303,15 +1024,6 @@ document.addEventListener(
         });
   
     }
-
-    
-   
-
-
-
-
-
-
 
   },
   false
