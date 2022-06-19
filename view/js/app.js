@@ -949,10 +949,13 @@ document.addEventListener(
 
     /**Voting */
     var candidatesToRun = []
+    var voting = 0;
     
     function getCandidatesToRun(){
       while (voting < 14){
         checkIfCandidatesEmpty(candidatePositions[voting]);
+        console.log("Local storage if candidate voting" + localStorage.getItem(candidatePositions[voting]) != "true")
+
         if (localStorage.getItem(candidatePositions[voting]) != "true"){
           //console.log(candidatePositions[voting] + " isn't empty")
           candidatesToRun.push(candidatePositions[voting]);
@@ -968,10 +971,11 @@ document.addEventListener(
     }
 
     var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked'); 
-    var voting = 0;
+    
     if(ballotOptions != null){
       getCandidatesToRun();
 
+      
       if (candidatesToRun != []){
         console.log(candidatesToRun)
         loadCandidates(candidatesToRun[0]);
