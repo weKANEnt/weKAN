@@ -454,22 +454,26 @@ document.addEventListener(
   })
     .then((response) => response.json())
     .then((result) => { 
+       if (result.success){
+        try {
+          result.candides.length;   // You cannot convert a number to upper case
+  
+          if (result.candidates.length > 0){
+            localStorage.setItem(candidateLink,false)
+          }
+          else{
+            localStorage.setItem(candidateLink,true)
+          }
+        }
+        catch(err) {
+          //console.log("didn't work")
+          //document.getElementById("demo").innerHTML = err.name;
+        }
+        
+       }
       //alert("Candidates length for: " + candidateLink + " is this length: " + result.candidates.length)
 
-      try {
-        result.candides.length;   // You cannot convert a number to upper case
-
-        if (result.candidates.length > 0){
-          localStorage.setItem(candidateLink,false)
-        }
-        else{
-          localStorage.setItem(candidateLink,true)
-        }
-      }
-      catch(err) {
-        console.log("didn't work")
-        //document.getElementById("demo").innerHTML = err.name;
-      }
+      
       
     })
     .catch((error) => console.log("error", error));  
@@ -999,6 +1003,7 @@ document.addEventListener(
           candidatesToRun.shift();
           console.log(studentVote.includes(parseInt(getSelectedValue.id)) == true);
   
+          
           if (studentVote.includes(parseInt(getSelectedValue.id)) != true){
            studentVote.push(parseInt(getSelectedValue.id))
           }
@@ -1019,7 +1024,15 @@ document.addEventListener(
          
        
         
-        else if (candidatesToRun.length == 0){
+        
+          else{
+          console.log("Please select an item")
+          //console.log(getSelectedValue)
+
+        }   /**/
+         
+        console.log("Candidates to run " + candidatesToRun.length)
+        if (candidatesToRun.length == 0){
           console.log("Ballot has ended");
          // console.studentVote
          //kayvia come back here
@@ -1034,12 +1047,6 @@ document.addEventListener(
           window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
 
         }
-          else{
-          console.log("Please select an item")
-          //console.log(getSelectedValue)
-
-        }   /**/
-         
         
         
         
