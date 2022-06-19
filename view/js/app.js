@@ -1008,8 +1008,8 @@ document.addEventListener(
          // console.log(JSON.parselocalStorage.getItem("voterBallot"))
          
           //console.log(JSON.parse(localStorage.voterBallot));
-          //submitBallot();
-          //window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+          submitBallot();
+          window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
 
         }
           else{
