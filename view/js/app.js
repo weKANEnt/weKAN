@@ -377,11 +377,13 @@ document.addEventListener(
 
   
   function submitBallot(){
+                        alert("Raw: " + localStorage.studentVote)
+                        alert("Ammended, json pase: " + JSON.parse(localStorage.studentVote),)
                          // console.log([JSON.parse(localStorage.studentVote)])
                           fetch(serverLink + 'ballot/submitBallot',{
                           method: 'PATCH',
                           body: JSON.stringify({
-                            "cids": JSON.parse(localStorage.studentVote),
+                            "cids":  localStorage.studentVote//JSON.parse(localStorage.studentVote),
                           }),
                           headers: {
                             'Accept': 'application/json, text/plain, */*',
