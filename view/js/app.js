@@ -1008,7 +1008,7 @@ document.addEventListener(
          // console.log(JSON.parselocalStorage.getItem("voterBallot"))
          alert(localStorage.voterBallot)
          console.log(JSON.parse(localStorage.voterBallot));
-          submitBallot();
+          //submitBallot();
           window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
 
         }
