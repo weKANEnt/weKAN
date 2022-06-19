@@ -377,7 +377,7 @@ document.addEventListener(
 
   
   function submitBallot(){
-                          console.log([JSON.parse(localStorage.studentVote)])
+                         // console.log([JSON.parse(localStorage.studentVote)])
                           fetch(serverLink + 'ballot/submitBallot',{
                           method: 'PATCH',
                           body: JSON.stringify({
