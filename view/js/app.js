@@ -455,6 +455,10 @@ document.addEventListener(
     .then((response) => response.json())
     .then((result) => { 
       //alert("Candidates length for: " + candidateLink + " is this length: " + result.candidates.length)
+      console.log("1" + result);
+      console.log("2:" + result.candidates)
+      console.log("3:" + result.candides.length)
+      console.log(result.candides.length == undefined)
       if (result.candidates.length > 0){
         localStorage.setItem(candidateLink,false)
       }
