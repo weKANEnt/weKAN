@@ -984,6 +984,9 @@ document.addEventListener(
     if(nextButton != null){
       nextButton.addEventListener("click", function(event){
         event.preventDefault();
+        
+        window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+        /*
         var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
         
         if (getSelectedValue != null){
@@ -1030,7 +1033,7 @@ document.addEventListener(
           console.log("Please select an item")
           //console.log(getSelectedValue)
 
-        }
+        } */
          
         
         
