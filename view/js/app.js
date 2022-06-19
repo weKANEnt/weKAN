@@ -455,15 +455,20 @@ document.addEventListener(
     .then((response) => response.json())
     .then((result) => { 
       //alert("Candidates length for: " + candidateLink + " is this length: " + result.candidates.length)
-      console.log("1" + result);
-      console.log("2:" + result.candidates)
-      console.log("3:" + result.candides.length)
-      console.log(result.candides.length == undefined)
-      if (result.candidates.length > 0){
-        localStorage.setItem(candidateLink,false)
+
+      try {
+        result.candides.length;   // You cannot convert a number to upper case
+
+        if (result.candidates.length > 0){
+          localStorage.setItem(candidateLink,false)
+        }
+        else{
+          localStorage.setItem(candidateLink,true)
+        }
       }
-      else{
-        localStorage.setItem(candidateLink,true)
+      catch(err) {
+        console.log("didn't work")
+        //document.getElementById("demo").innerHTML = err.name;
       }
       
     })
@@ -984,7 +989,7 @@ document.addEventListener(
     if(nextButton != null){
       nextButton.addEventListener("click", function(event){
         event.preventDefault();
-        
+
         window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
         /*
         var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
