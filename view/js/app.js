@@ -990,8 +990,8 @@ document.addEventListener(
       nextButton.addEventListener("click", function(event){
         event.preventDefault();
 
-        window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
-        /*
+        //window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+      
         var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
         
         if (getSelectedValue != null){
@@ -1023,22 +1023,22 @@ document.addEventListener(
           console.log("Ballot has ended");
          // console.studentVote
          //kayvia come back here
-         alert("This is the studentVote: " + localStorage.getItem(studentVote))
-         alert("This is the JSON Stringify: " + localStorage.getItem(JSON.stringify(studentVote)))
-         alert("This is the localStorage, unique to you: " + localStorage.getItem("voterBallot"))
+        // alert("This is the studentVote: " + localStorage.getItem(studentVote))
+        // alert("This is the JSON Stringify: " + localStorage.getItem(JSON.stringify(studentVote)))
+         //alert("This is the localStorage, unique to you: " + localStorage.getItem("voterBallot"))
          // localStorage.setItem("voterBallot", JSON.stringify(studentVote))
          // console.log(JSON.parselocalStorage.getItem("voterBallot"))
          
-          //console.log(JSON.parse(localStorage.voterBallot));
-         // submitBallot();
-         // window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+          alert(JSON.parse(localStorage.voterBallot));
+          submitBallot();
+          window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
 
         }
           else{
           console.log("Please select an item")
           //console.log(getSelectedValue)
 
-        } */
+        }   /**/
          
         
         
