@@ -1004,6 +1004,7 @@ document.addEventListener(
         
         else if (candidatesToRun.length == 0){
           console.log("Ballot has ended");
+         // console.studentVote
           localStorage.setItem("voterBallot", JSON.stringify(studentVote))
          // console.log(JSON.parselocalStorage.getItem("voterBallot"))
          
