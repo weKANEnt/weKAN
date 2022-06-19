@@ -1005,12 +1005,16 @@ document.addEventListener(
         else if (candidatesToRun.length == 0){
           console.log("Ballot has ended");
          // console.studentVote
-          localStorage.setItem("voterBallot", JSON.stringify(studentVote))
+         //kayvia come back here
+         alert("This is the studentVote: " + localStorage.getItem(studentVote))
+         alert("This is the JSON Stringify: " + localStorage.getItem(JSON.stringify(studentVote)))
+         alert("This is the localStorage, unique to you: " + localStorage.getItem("voterBallot"))
+         // localStorage.setItem("voterBallot", JSON.stringify(studentVote))
          // console.log(JSON.parselocalStorage.getItem("voterBallot"))
          
           //console.log(JSON.parse(localStorage.voterBallot));
-          submitBallot();
-          window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+         // submitBallot();
+         // window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
 
         }
           else{
