@@ -980,27 +980,32 @@ document.addEventListener(
     if(nextButton != null){
       nextButton.addEventListener("click", function(event){
         event.preventDefault();
-    var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
+        var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
         
+        if (getSelectedValue != null){
+
+          candidatesToRun.shift();
+          console.log(studentVote.includes(parseInt(getSelectedValue.id)) == true);
+  
+          if (studentVote.includes(parseInt(getSelectedValue.id)) != true){
+           studentVote.push(parseInt(getSelectedValue.id))
+          }
+  
+          console.log(studentVote)
+   
+          if (getSelectedValue != null && candidatesToRun.length != 0){
+            loadCandidates(candidatesToRun[0]); 
+            
+            console.log(candidatesToRun);
+            
+            
+  
+          }
+  
+
+        }
          
-        candidatesToRun.shift();
-        console.log(studentVote.includes(parseInt(getSelectedValue.id)) == true);
-
-        if (studentVote.includes(parseInt(getSelectedValue.id)) != true){
-         studentVote.push(parseInt(getSelectedValue.id))
-        }
-
-        console.log(studentVote)
- 
-        if (getSelectedValue != null && candidatesToRun.length != 0){
-          loadCandidates(candidatesToRun[0]); 
-          
-          console.log(candidatesToRun);
-          
-          
-
-        }
-
+       
         
         else if (candidatesToRun.length == 0){
           console.log("Ballot has ended");
