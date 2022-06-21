@@ -879,7 +879,7 @@ document.addEventListener(
                 console.log("Ballot ended") */
                 //studentVote
                 submitBallot();
-                window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+                //window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
             }
 
 
@@ -891,25 +891,29 @@ document.addEventListener(
         fetch(serverLink + 'ballot/submitBallot',{
             method: 'PATCH',
             body: JSON.stringify({
-              "cids":  localStorage.studentVote//JSON.parse(localStorage.studentVote),
+              "cids":  studentVote//JSON.parse(localStorage.studentVote),
             }),
             headers: {
               'Accept': 'application/json, text/plain, */*',
               'Content-Type': 'application/json',
-              'Authorization': studentVote,
+              'Authorization': localStorage.getItem("studentToken"),
               },
             })
             .then(res => res.json())
             .then(res => {
+                console.log(res)
               if (res.message == "Vote already recorded for given email"){
                 
                 alert("Sorry! You've already placed your vote. Please wait until the results are released.")
+                window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+                }
+              else if (res.success == false){
+                alert("Unable to submit, please contact your administrator");
+                window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
               }
-              if (res.success == false){
-                alert("Unable to submit, please contact your administrator")
-              }
-              if (res.success == true){
+              else if (res.success == true){
                 alert("Your ballot has been submitted.");
+                window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
               }
                 
             })
