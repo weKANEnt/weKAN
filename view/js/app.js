@@ -250,10 +250,11 @@ document.addEventListener(
     //Student Voter
     /**Allow student to place votes for election */
     if (startStudentBallot != null){
-    startStudentBallot.addEventListener("click", function(){
-    // getToVote();
-    window.location.href = directoryLinkAddress + 'placeBallotPage.html';
-    localStorage.setItem("Yessss", "here")
+        localStorage.setItem("studentVote","")
+        startStudentBallot.addEventListener("click", function(){
+        // getToVote();
+        window.location.href = directoryLinkAddress + 'placeBallotPage.html';
+        localStorage.setItem("Yessss", "here")
 
 
     });
@@ -712,9 +713,11 @@ document.addEventListener(
     /**Voting */
     var candidatesToRun = []
     if (ballotOptions != null){
+        
         loadCandidatesToVoteFor();
-        if (loadCandidates(candidatesToRun[0]) != null){
+        if (candidatesToRun[0] != null){
             loadCandidates(candidatesToRun[0]);
+            candidatesToRun.shift();
         }
         
 
@@ -843,16 +846,19 @@ document.addEventListener(
           
         })
         .catch((error) => console.log("error", error));  
-      }
+    }
         
     if (nextButton != null){
-        nextButton.addEventListener("click", function(event){
+        nextButton.addEventListener("click", function(event){ 
             event.preventDefault();
-            console.log(candidatesToRun)
+           // console.log(candidatesToRun)
             var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');
 
             if (candidatesToRun[0] != null){
                 if (getSelectedValue != null){
+                    studentVote.push(parseInt(getSelectedValue.id));
+                    //studentVote
+                   // console.log("Student vote is: " + studentVote)
                     if (candidatesToRun.length != 0){
                         loadCandidates(candidatesToRun[0]);
                         candidatesToRun.shift();
@@ -867,70 +873,58 @@ document.addEventListener(
 
             }
             else{
-                console.log("Ballot ended")
-                alert("Your vote is: ")
+               /* console.log(studentVote)
+                localStorage.setItem("studentVote",studentVote)
+                console.log("Local storage: " + localStorage.getItem("studentVote"))
+                console.log("Ballot ended") */
+                //studentVote
+                submitBallot();
                 window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
             }
-            
-
-           /*   
-        
-            if (getSelectedValue != null){
-    
-              
-              console.log(studentVote.includes(parseInt(getSelectedValue.id)) == true);
-      
-              
-              if (studentVote.includes(parseInt(getSelectedValue.id)) != true){
-               studentVote.push(parseInt(getSelectedValue.id))
-              }
-      
-              console.log(studentVote)
-       
-              if (getSelectedValue != null && candidatesToRun.length != 0){
-                loadCandidates(candidatesToRun[0]); 
-                
-                console.log(candidatesToRun);
-                
-                
-      
-              }
-      
-    
-            }
-             
-           
-            
-            
-              else{
-              console.log("Please select an item")
-              //console.log(getSelectedValue)
-    
-            }   
-             
-            console.log("Candidates to run " + candidatesToRun.length)
-            if (candidatesToRun.length == 0){
-              console.log("Ballot has ended");
-             // console.studentVote
-             //kayvia come back here
-            // alert("This is the studentVote: " + localStorage.getItem(studentVote))
-            // alert("This is the JSON Stringify: " + localStorage.getItem(JSON.stringify(studentVote)))
-             //alert("This is the localStorage, unique to you: " + localStorage.getItem("voterBallot"))
-             // localStorage.setItem("voterBallot", JSON.stringify(studentVote))
-             // console.log(JSON.parselocalStorage.getItem("voterBallot"))
-             
-              alert(JSON.parse(localStorage.voterBallot));
-              submitBallot();
-              window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
-    
-            }*/
-            
 
 
         });
     }
 
+    function submitBallot(){
+        //console.log(studentVote);
+        fetch(serverLink + 'ballot/submitBallot',{
+            method: 'PATCH',
+            body: JSON.stringify({
+              "cids":  localStorage.studentVote//JSON.parse(localStorage.studentVote),
+            }),
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json',
+              'Authorization': studentVote,
+              },
+            })
+            .then(res => res.json())
+            .then(res => {
+              if (res.message == "Vote already recorded for given email"){
+                
+                alert("Sorry! You've already placed your vote. Please wait until the results are released.")
+              }
+              if (res.success == false){
+                alert("Unable to submit, please contact your administrator")
+              }
+              if (res.success == true){
+                alert("Your ballot has been submitted.");
+              }
+                
+            })
+            .catch(err => console.error())
 
+     
+        console.log("Ballot submitted")
+
+
+    }
+
+
+    function resetBallot(){
+        localStorage.setItem("nextCandidate",1);
+    } 
 
 
     /**Student Voting Process */
