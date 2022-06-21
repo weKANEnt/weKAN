@@ -373,33 +373,45 @@ document.addEventListener(
       localStorage.setItem("nextCandidate",1);
   }
 
-
+  function submitBallot2(){
+    alert("Raw: " + localStorage.studentVote)
+    alert("Ammended, json pase: " + JSON.parse(localStorage.studentVote),)
+      console.log([JSON.parse(localStorage.studentVote)])
+     
+      alert(localStorage.studentVote)
+     fetch(serverLink + 'ballot/submitBallot',{
+      method: 'PATCH',
+      body: JSON.stringify({
+        "cids":  localStorage.studentVote//JSON.parse(localStorage.studentVote),
+      }),
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("studentToken"),
+        },
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.message == "Vote already recorded for given email"){
+          
+          alert("Sorry! You've already placed your vote. Please wait until the results are released.")
+        }
+          
+      })
+      .catch(err => console.error())
+     
+} 
 
   
   function submitBallot(){
-                        alert("Raw: " + localStorage.studentVote)
-                        alert("Ammended, json pase: " + JSON.parse(localStorage.studentVote),)
-                         // console.log([JSON.parse(localStorage.studentVote)])
-                          fetch(serverLink + 'ballot/submitBallot',{
-                          method: 'PATCH',
-                          body: JSON.stringify({
-                            "cids":  localStorage.studentVote//JSON.parse(localStorage.studentVote),
-                          }),
-                          headers: {
-                            'Accept': 'application/json, text/plain, */*',
-                            'Content-Type': 'application/json',
-                            'Authorization': localStorage.getItem("studentToken"),
-                            },
-                          })
-                          .then(res => res.json())
-                          .then(res => {
-                            if (res.message == "Vote already recorded for given email"){
-                              
-                              alert("Sorry! You've already placed your vote. Please wait until the results are released.")
-                            }
-                              
-                          })
-                          .catch(err => console.error())
+                        console.log("Raw: " + localStorage.studentVote)
+                        console.log("Ammended, json pase: " + JSON.parse(localStorage.studentVote))
+                        console.log("Localstorage.variable: " + localStorage.studentVote)
+                        console.log(["Localstorage.variable parse: " +JSON.parse(localStorage.studentVote)]) 
+                        console.log("Submit for Student ballot: " + localStorage.voterBallot)
+                        console.log("Submit for Student ballot: " + localStorage.getItem(voterBallot))
+                        //2022-06-21
+                        window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
                          
      } 
           
