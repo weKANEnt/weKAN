@@ -19,6 +19,7 @@ document.addEventListener(
      * 11. Put criteria for date entered in polling information
      * 12. Student shouldn't be able to vote if poll hasn't started
      * 13. Change token for getting candidates during vote
+     * 14. Add if token empty, the page redirects them to index
      */
     //NOTE: //Complete means that the main function has been completed
     //variables for buttons
@@ -712,6 +713,10 @@ document.addEventListener(
     var candidatesToRun = []
     if (ballotOptions != null){
         loadCandidatesToVoteFor();
+        if (loadCandidates(candidatesToRun[0]) != null){
+            loadCandidates(candidatesToRun[0]);
+        }
+        
 
 
        /// checkIfStudentMayVoteForCandidate('presidents');
@@ -802,21 +807,77 @@ document.addEventListener(
 
     }
 
-    function loadTheCandidates(){
-        console.log("These are the candidates left to load: " + candidatesToRun)
-    }
+
+    function loadCandidates(candidateLink){
+         //console.log("These are the candidates left to load: " + candidatesToRun)
+        ballotOptions.innerHTML = "";
+        fetch(serverLink + "ballot/" + candidateLink , 
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("studentToken") //localStorage.getItem("adminToken")
+        }
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          electTitle.innerHTML = "<h4>" + result.message + "</h4>";
+          //console.log(result.candidates.length)
+          if (result.candidates.length > 0){
+            for (i in result.candidates){
+              let cid = result.candidates[i].cid;
+              let electFullName = result.candidates[i].firstName + result.candidates[i].lastName
+              electName = result.candidates[i].firstName + result.candidates[i].lastName;
+              
+              ballotOptions.innerHTML += 
+              
+                "<input type = \"radio\" id= '" + cid + "'name=" + "studentVotes" + " value= " + electFullName + " >" 
+                + "<label for=" + cid + ">    " + result.candidates[i].firstName + " " + result.candidates[i].lastName + "</label>"
+                ;
+              ballotOptions.innerHTML += "</br>" ;
+              }
+          }else{
+            
+          }
+          
+        })
+        .catch((error) => console.log("error", error));  
+      }
         
     if (nextButton != null){
         nextButton.addEventListener("click", function(event){
+            event.preventDefault();
             console.log(candidatesToRun)
+            var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');
 
+            if (candidatesToRun[0] != null){
+                if (getSelectedValue != null){
+                    if (candidatesToRun.length != 0){
+                        loadCandidates(candidatesToRun[0]);
+                        candidatesToRun.shift();
+                        
+                    }
+                    
+    
+    
+                }else{
+                    console.log("Please select an item")
+                }
 
+            }
+            else{
+                console.log("Ballot ended")
+                alert("Your vote is: ")
+                window.location.href = directoryLinkAddress + 'voteBallotEnd.html';
+            }
+            
 
-           /* var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
+           /*   
         
             if (getSelectedValue != null){
     
-              candidatesToRun.shift();
+              
               console.log(studentVote.includes(parseInt(getSelectedValue.id)) == true);
       
               
