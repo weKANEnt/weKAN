@@ -899,7 +899,7 @@ document.addEventListener(
               'Authorization': localStorage.getItem("studentToken"),
               },
             })
-            .then(res => res.json())
+            .then(res => res.json()) 
             .then(res => {
                 console.log(res)
               if (res.message == "Vote already recorded for given email"){
