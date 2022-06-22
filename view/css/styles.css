@@ -175,6 +175,7 @@ label {
   color: #7c7c7c;
 }
 
+
 .redButton {
   background-color: #e45656;
   color: white;
@@ -234,6 +235,9 @@ label {
   border-color: #E45656;
 }
 
+#navLogOut{
+  font-weight: bold;
+}
 
 /*
 .adminButton{

@@ -75,6 +75,12 @@ document.addEventListener(
     var getElectionResultsAdmin = document.getElementById("getElectionResultsAdmin")
     var electionResultAdminSection = document.getElementById('electionResultsAdmin')
     var getSelectedValue = document.querySelector('input[name="studentVotes"]:checked');  
+    var navBarAdminElectionCreation = document.getElementsByClassName("navBarAdmin")[0];
+    var navBarAdminElectionModifications = document.getElementsByClassName("navBarAdmin")[1];
+    var navBarAdminResults = document.getElementsByClassName("navBarAdmin")[2];
+    var navBarAdminViewResults = document.getElementsByClassName("navBarAdmin")[3];
+    var navBarRegisterVoters = document.getElementsByClassName("navBarAdmin")[4];
+    //var electionModifications = document.getElementById('electionModifications')
 
     var ballotOptions = document.getElementById("ballotOptions");
 
@@ -171,6 +177,51 @@ document.addEventListener(
 
     /**End of Cancel Buttons */
     /** Event Listeners*/
+
+   /*  navBarAdminElectionCreation 
+     navBarAdminElectionModifications 
+     navBarAdminResults 
+     navBarAdminViewResults */
+
+    if (navBarAdminElectionCreation !=null){
+        navBarAdminElectionCreation .addEventListener("click", function(event){
+            event.preventDefault()
+            window.location.href = directoryLinkAddress + 'adminIndex.html';
+        })
+    }
+
+    if (navBarAdminElectionModifications !=null){
+        navBarAdminElectionModifications .addEventListener("click", function(event){
+            event.preventDefault()
+           // alert("yes2");
+            window.location.href = directoryLinkAddress + 'adminIndex_ElectionModifications.html';
+        })
+    }
+
+    if (navBarAdminResults !=null){
+        navBarAdminResults .addEventListener("click", function(event){
+            event.preventDefault()
+            alert("yes3");
+           // window.location.href = directoryLinkAddress + 'adminIndex_ElectionModifications.html';
+        })
+    }
+
+    if (navBarAdminViewResults !=null){
+        navBarAdminViewResults .addEventListener("click", function(event){
+            event.preventDefault()
+            alert("yes4");
+           // window.location.href = directoryLinkAddress + 'adminIndex_ElectionModifications.html';
+        })
+    }
+
+    if (navBarRegisterVoters !=null){
+        navBarRegisterVoters .addEventListener("click", function(event){
+            event.preventDefault()
+            //alert("yes5");
+            window.location.href = directoryLinkAddress + 'adminIndex_RegisterVoters.html';
+        })
+    }
+
     //Redirect to logIn page upon successful email verification
     //Complete
     if (getOTPButton != null){    
@@ -395,8 +446,12 @@ document.addEventListener(
                 alert("Election created successfully")
                 window.location.href = directoryLinkAddress + 'adminIndex.html';
             }
+            else if(res.name == "Single Election"){
+                alert("An election is already going on. Please delete the previous election before making a new one.")
+            }
             else {
-            errorMessage.innerHTML = "*Error message goes here";
+                alert("Please ensure that all information entered in the correct format")
+                //errorMessage.innerHTML = "*Error message goes here";
             }
             })
         } )
@@ -416,7 +471,13 @@ document.addEventListener(
             }
         }).then(res => res.json())
         .then(res => {console.log(res)
-            console.log("Election has been deleted")
+            if (res.success ==true){
+                alert("Election has successfully been deleted")
+            }
+            else{
+                alert("Failure to delete election, please sign out and sign back in to try again.")
+            }
+            
             window.location.href = directoryLinkAddress + 'adminIndex.html';
         }) 
         } else {
@@ -424,7 +485,13 @@ document.addEventListener(
         }
         }
         else {
-            alert("Email and password incorrect.")
+            if (adminEmail.value == "" || password.value == ""){
+                alert("Please ensure all fields are filled out correctly.")
+            }
+            else{
+                alert("The email and password entered are incorrect.")
+            }
+            
         }
         })
 
@@ -473,27 +540,15 @@ document.addEventListener(
         }).then(res => res.json())
         .then(res => {
         if (res.success == true){
-        console.log("Candidate was sucessfully added")
-        errorMessage.innerHTML = "";
-        alert("Candidate has been sucessfully added");
-            candidateFirstName.value = "";
-            candidateLastName.value = "";
-            candidateEmail.value = "";
-            candidateAttachedHall.value = "";
-            candidateFacultyOfStudy.value = "";
-            candidateElectPosition.value = "";
-            candidateAbout.value = "";
+            alert("Candidate has been sucessfully added");
+        }
+        else if(res.name == "Empty Field"){
+            alert("Please ensure that all information entered is in the correct format!")
+           
         }
         else {
-            console.log("Candidate was not successfully added")
-            console.log(String(candidateFirstName.value))
-            console.log(String(candidateLastName.value))
-            console.log(String(candidateEmail.value))
-            console.log(parseInt(candidateAttachedHall.value))
-            console.log(parseInt(candidateFacultyOfStudy.value))
-            console.log(parseInt(candidateElectPosition.value))
-            console.log(String(candidateAbout.value) )
-            errorMessage.innerHTML = "*Error message goes here";
+            alert("Candidate has already been added!")
+            //errorMessage.innerHTML = "*Error message goes here";
         }
         })
         })
@@ -502,32 +557,32 @@ document.addEventListener(
     //Admin is able to register a voter for the election period
     //Complete
     if (registerVoter != null){
-    registerVoter.addEventListener("click", function(event){
-    fetch(serverLink + 'admin/addVoter', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem("adminToken")
-    },
-    body: JSON.stringify({
-        "email": email.value,
-        "hall": parseInt(hallOptions.value),
-        "faculty":  parseInt(facultyOptions.value),
-        "doesCommute": Boolean(commuteStatus.value),
-        "isPostGrad": Boolean(postGradStatus.value) }
-    )
-    })
-    .then(res => res.json())
-    .then(res => {
-    if (res.success == true){
-    alert("Voter has been registered")
-    }
-    else {
-        errorMessage.innerHTML = "*Error message goes here";
-    }
-    })
-    })
+        registerVoter.addEventListener("click", function(event){
+        fetch(serverLink + 'admin/addVoter', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem("adminToken")
+        },
+        body: JSON.stringify({
+            "email": email.value,
+            "hall": parseInt(hallOptions.value),
+            "faculty":  parseInt(facultyOptions.value),
+            "doesCommute": Boolean(commuteStatus.value),
+            "isPostGrad": Boolean(postGradStatus.value) }
+        )
+        })
+        .then(res => res.json())
+        .then(res => {
+        if (res.success == true){
+        alert("Voter has been registered")
+        }
+        else {
+            errorMessage.innerHTML = "*Error message goes here";
+        }
+        })
+        })
     }
 
     //Admin is able to generate election results

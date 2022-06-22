@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>UWIVotes</title>
+    <link  rel="stylesheet" href="../view/css/stylesAdmin.css" type="text/css">
+   <!-- <link rel="icon" href="imgs/bug.png"> -->
+    <script src="../view/js/app.js"></script>
+</head>
+ <!----> 
+ <!---cd Desktop/UWI\ 2022/SWEN3920/weKAN   -->
+<body> 
+    <div class="homePage"> <!-- <p>navbar</p> -->
+        <div class="nav">
+            <div class="navListLeft">
+                <!-- <p>left</p> -->
+                <ul>
+                    <li><a href="#"> <img id="navBarLogo" src="../view/imgs/UWIVotes.png" alt=""></a></li>
+                </ul>
+            </div>
+            <div class="navListRight">
+                <!-- <p>right</p> -->
+                <ul>
+                    <a href="#" id="navLogOut" class="blackLink">Log Out</a>
+                </ul>
+            </div>
+       </div>
+
+       <div class="pageText">
+            
+       </div>
+    
+        <div class="adminBody">
+           
+        </div>
+        <div class="leftContent">
+            
+            <div class="adminNavBar">
+                <ul>
+                    <li ><a href="#" class="navBarAdmin">Election Creation</a></li>
+                    <li class="li1"><a class="navBarAdmin hightlightNav" href="#">Election Modifications</a></li>
+                    <li class="li1"><a class="navBarAdmin" href="#">Results</a></li>
+                    <li class="li1"><a class="navBarAdmin" href="#">View Results</a></li>
+                    <li class="li1"><a class="navBarAdmin" href="#">Register Voter</a></li>
+                </ul>
+            </div>
+            
+
+        </div>
+        <div class="rightContent">
+            <div class="createElectionSection">
+                <h4>Delete Election</h4>
+                <label for="email">Email</label><br>
+                <input class="input" type="text" id="adminEmail" placeholder="johndoe@uwimona.edu.jm"><br>
+                <br>
+                <label for="password">Password</label><br>
+                <input class="input" type="password" id="password" placeholder="*******"><br>
+                <div id="errorMessageAdmin"><i></i></div> <br>
+                <br>
+                <input class="redButton" type="submit" id="deleteElection" value="Delete Election">
+                <a href="#" class="redLink" id="cancelDeleteElection">Cancel</a>
+            
+            </div>
+            
+        </div>
+        
+    
+       
+    </div>
+    
+    <aside>
+    </aside>
+
+</body>
+</html>

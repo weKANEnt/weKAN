@@ -38,11 +38,11 @@
 
             <div class="adminNavBar">
                 <ul>
-                    <li ><a class="navBarAdmin hightlightNav" href="#">Election Creation</a></li>
+                    <li ><a href="#" class="navBarAdmin">Election Creation</a></li>
                     <li class="li1"><a class="navBarAdmin" href="#">Election Modifications</a></li>
                     <li class="li1"><a class="navBarAdmin" href="#">Results</a></li>
                     <li class="li1"><a class="navBarAdmin" href="#">View Results</a></li>
-                    <li class="li1"><a class="navBarAdmin" href="#">Register Voters</a></li>
+                    <li class="li1"><a class="navBarAdmin hightlightNav" href="#">Register Voter</a></li>
                 </ul>
             </div>
             
@@ -50,62 +50,43 @@
         </div>
         <div class="rightContent">
             <div class="createElectionSection">
-                <h4>Create Poll</h4>
-
-                <label class="label" for="Polling Name">Polling Name</label><br>
-                <input class="input" type="text" id="electionName" placeholder="Enter Election Name Here"><br>
-                <br>
-                <label class="label" for="Start Date">Start Date (yyyy-mm-dd)</label><br>
-                <input class="input" type="tel" id="startDate" placeholder="Start Date"><br>
-                <br>
-                <label class="label" for="End Date">End Date (yyyy-mm-dd)</label><br>
-                <input class="input" type="text" id="endDate" placeholder="End Date"><br>
-                <br>
-                <button id="createElection" class="redButton" type="submit"> Create Election </button>
-                <a href="#" class="redLink" id="cancelCreateElection">Cancel</a>
+                <h4>Voter Information</h4>
                 
-                
-            </div>
-           
-            <br>
-            <div class="createElectionSection">
-                <h4>Candidate Information</h4>
-            
-                <label class="label" for="firstName">First Name</label><br>
-                <input class="input" type="text" id="firstName" placeholder="e.g. John"><br>
-                <br>
-                <label class="label" for="lastName">Last Name</label><br>
-                <input class="input" type="text" id="lastName" placeholder="e.g. Brown"><br>
-                <br>
                 <label class="label" for="email">Email</label><br>
-                <input class="input" type="text" id="email" placeholder="e.g. john.brown@mymona.uwi.edu"><br>
-                <br>
+                <input class="input" type="text" id="email" placeholder="Email here"><br>    
+                
                 <label class="label" for="hall">Attached Hall</label><br>
                 <select name="hallsOfLiving" id="hallsOfLivingDropdown">
                     
                 </select>
 
                 <br>
-                <br>
                 <label class="label" for="faculty">Faculty of Study</label><br>
                 <select name="facultyOfStudy" id="facultyOfStudyDropdown">
-                    
-                </select>
-                <br>
-                <br>
-                <label class="label" for="position">Elect Position</label><br>
-                <select name="electPositions" id="electPositionsDropdown">
 
                 </select>
+
+
+                <br>
+                <label class="label" for="commuteStatus">Commuter</label><br>
+                <select name="commuteStatus" id="commuteStatus">
+                    <option value = false>No</option>
+                    <option value = true>Yes</option>
+                </select>
+
+                <br>
+                <label class="label" for="postGradStatus">Post Grad</label><br>
+                <select name="postGradStatus" id="postGradStatus">
+                    <option value = false>No</option>
+                    <option value = true>Yes</option>
+                </select>
+
+
                 <br>
                 <br>
-                <label class="label" for="About">About</label><br>
-                <textarea id="about"class="input" type="text" placeholder="Enter the candidates' information...."></textarea>
+                <input id="registerVoter" class="redButton" type="submit" value="Register Voter">
+                <a href="#" class="redLink" id="cancelRegisterVoter">Cancel</a>
                 <br>
-                <!--<textarea   ></textarea> -->
-                <br>
-                <button id="addCandidate" class="redButton" type="submit"> Add Candidate</button>
-                <a href="#" class="redLink" id="cancelCreateElection">Cancel</a>
                 <div id="errorMessage"><i></i></div> <br>
             </div>
         </div>

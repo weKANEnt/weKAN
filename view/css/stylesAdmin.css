@@ -1,0 +1,360 @@
+html {
+}
+
+/**page arrangement**/
+.homePage {
+  display: grid;
+  grid-template-areas:
+    "topBar     topBar    topBar    topBar    topBar"
+    "pageText   pageText  pageText  pageText  pageText"
+    "leftContent    rightContent   rightContent   rightContent   rightContent"
+    "leftContent    rightContent   rightContent   rightContent   rightContent";
+  grid-gap: 10px;
+  
+  margin: 0px;
+}
+
+
+body {
+  
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.nav {
+  grid-area: topBar;
+  display: grid;
+  grid-template-areas: "topBarLeft     topBarLeft    topBarLeft    topBarLeft    topBarRight";
+  grid-gap: 10px;
+  margin: 0px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.17);
+  padding: 20px;
+  margin-top: -6px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.navListLeft {
+  grid-area: topBarLeft;
+}
+
+.navListLeft > ul > li {
+  float: left;
+  padding-left: 20px;
+}
+
+.navListRight {
+  grid-area: topBarRight;
+}
+
+#headerImage {
+  max-height: 500px;
+}
+
+#navBarLogo {
+  width: 100px;
+}
+
+ul {
+  display: inline;
+  list-style-type: none;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #e45656;
+  font-weight: normal;
+}
+
+.hightlightNav{
+  
+}
+
+.hightlightNav{
+  color: rgb(250, 60, 60) !important;
+  font-weight: bold !important;
+}
+
+.adminNavBar a:link, a:visited{
+  font-weight: 300;
+  color: black;
+}
+
+.adminNavBar a:hover{
+  font-weight: 300;
+  color: black;
+}
+
+.adminNavBar li{
+  max-width: 210px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 24px;
+
+
+  background: #FFFFFF;
+  border: 1px solid #E8E8E8;
+  border-radius: 3px;
+  font-size: 16px;
+
+}
+
+.createElectionSection{
+  background: #FFFFFF;
+  border: 1px solid #E8E8E8;
+  border-radius: 3px;
+  font-size: 16px;
+  padding-left: 35px;
+  padding-bottom: 50px;
+}
+
+
+.li1{
+  margin-top: -1px;
+}
+
+.leftContent {
+  grid-area: leftContent;
+  max-width: 500px;
+  padding-top: 12px;
+  padding-left: 100px;
+}
+
+.rightContent {
+  
+  margin-left: -40px;
+  grid-area: rightContent;
+  max-width: 550px;
+  padding-top: 30px;
+
+  
+}
+
+.input, .label{
+  font-size: 14px;
+  
+  
+}
+
+.label{
+  color: rgb(91, 91, 91);
+  
+}
+
+.input{
+  background: #FFFFFF;
+  border: 1px solid #E8E8E8;
+  border-radius: 3px;
+  font-size: 14px;
+  padding-left: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 8px;
+
+  width: 300px;
+  
+  
+}
+
+
+
+#createElection, #addCandidate, #deleteElection, #registerVoter{
+  cursor: pointer;
+  font-weight: bold;
+
+
+  background: #FFFFFF;
+  border: 1px solid #E8E8E8;
+  border-radius: 3px;
+  font-size: 14px;
+  
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-right: 8px;
+   
+}
+
+
+.id{
+  height: 200px;
+}
+
+.redButton{
+  
+}
+
+#navLogOut{
+  font-weight: bold;
+}
+
+#cancelCreateElection{
+  color: red;
+}
+
+#hallsOfLivingDropdown, #facultyOfStudyDropdown, #electPositionsDropdown, #commuteStatus, #postGradStatus{
+  background: #FFFFFF;
+  
+  border: 1px solid #E8E8E8;
+  border-radius: 3px;
+  font-size: 14px;
+  padding-left: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 8px;
+
+  width: 300px;
+
+
+
+}
+
+/****Delete after this***/
+
+/*
+.poll{
+  display: grid;
+  grid-template-areas:
+    "pollSec1   pollSec2  pollSec3";
+}
+.poll2{
+  display: grid;
+  grid-template-areas:
+    "pollSec4   pollSec5  end";
+}
+
+.pollSec1{
+  grid-area: pollSec1;
+}
+
+.pollSec2{
+  grid-area: pollSec2;
+  margin-left: -80px;
+  
+}
+
+#pollSec2{
+  max-width: 60px !important;
+  min-width: 60px !important;
+  
+}
+
+.pollSec3{
+  grid-area: pollSec3;
+  margin-left: -80px;
+}
+
+#pollSec3{
+  max-width: 60px !important;
+  min-width: 60px !important;
+}
+
+
+.pollSec5{
+  grid-area: pollSec5;
+  margin: -30px;
+  align-self:  center;
+  
+}
+
+.pollSec6{
+  align-self: center;
+  
+}
+
+
+
+
+
+
+
+
+.pageText {
+  grid-area: pageText;
+  text-align: center;
+}
+
+
+
+
+
+
+
+.adminBody{
+  padding-left: 50px;
+}
+
+
+
+
+#bodyLogo {
+  max-width: 250px;
+}
+
+
+
+.input {
+  background: #fafafa;
+  padding: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border: 1.5px solid #939393;
+  border-radius: 9px;
+  font-size: 12px;
+  width: 300px;
+}
+
+label {
+  color: #7c7c7c;
+}
+
+
+
+#getOTPButton{
+  cursor: pointer;
+}
+
+
+#errorMessage{
+  color: rgb(255, 90, 90);
+  
+}
+
+#errorMessageAdmin{
+  color: rgb(255, 90, 90);
+  
+}
+
+.adminButton, .adminButtonDelete{
+  padding: 20px;
+  background-color: white;
+  border-style: solid;
+  font-weight: bold;
+  
+  box-sizing: border-box;
+
+
+  cursor: pointer;
+  
+
+  background: #FFFFFF;
+  border: 1.5px solid #dfdfdf;
+  border-radius: 4px;
+}
+.adminButton:hover{
+  transition-duration: 0.4s;
+  color: #E45656;
+  border-color: #ff8888;
+}
+
+.adminButtonDelete:hover{
+  transition-duration: 0.4s;
+  background: #E45656 ;
+  color: #ffffff;
+  border-color: #E45656;
+}
+*/
