@@ -644,10 +644,10 @@ document.addEventListener(
         .then(res => res.json())
         .then(res => {
         if (res.success == true){
-        alert("Voter has been registered")
+            alert("Voter has been registered")
         }
         else {
-            errorMessage.innerHTML = "*Error message goes here";
+            alert("Please ensure all fields are filled out");
         }
         })
         })
