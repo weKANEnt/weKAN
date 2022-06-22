@@ -81,8 +81,12 @@ document.addEventListener(
     var navBarAdminViewResults = document.getElementsByClassName("navBarAdmin")[3];
     var navBarRegisterVoters = document.getElementsByClassName("navBarAdmin")[4];
     //var electionModifications = document.getElementById('electionModifications')
-
+    var returnToHome = document.getElementById("returnToHome");
     var ballotOptions = document.getElementById("ballotOptions");
+    var alreadyHaveVerification = document.getElementById("alreadyHaveVerification");
+    var postElectionResults = document.getElementById("postElectionResults");
+    var retractElectionResults = document.getElementById("retractElectionResults");
+    var adminResultsView = document.getElementById("adminResultsView")
 
     var startStudentBallot = document.getElementById("startStudentBallott");
     var nextButton = document.getElementById("next");
@@ -97,6 +101,7 @@ document.addEventListener(
     var electName = "";
     var studentVote = [];
 
+    var generateElectionResults = document.getElementById("generateElectionResults");
   
 
     var candidatePositions = [
@@ -106,6 +111,11 @@ document.addEventListener(
 
 
     }
+    //localStorage.setItem("adminToken", "")
+
+
+
+    
 
     //Shortners
     {
@@ -118,6 +128,16 @@ document.addEventListener(
     method: "GET",
     redirect: "follow",
     };
+
+
+    /*
+    if ( window.location.href.includes("admin") 
+            && (localStorage.getItem("adminToken") == ""))
+            {
+                
+                console.log("404 Error")
+                window.location.href = directoryLinkAddress + '404PageError.html'
+    } */
 
     /**Simple Event Listeners**/
     //Nav Bar
@@ -134,6 +154,18 @@ document.addEventListener(
     }
 
     });
+    }
+
+    if (returnToHome != null){
+        returnToHome.addEventListener("click", function(event){
+            window.location.href = directoryLinkAddress + 'index.html';
+        });
+    }
+
+    if (alreadyHaveVerification != null){
+        alreadyHaveVerification.addEventListener("click", function(event){
+            window.location.href = directoryLinkAddress + 'logIn.html';
+        });
     }
 
     //Candidates
@@ -191,7 +223,7 @@ document.addEventListener(
     }
 
     if (navBarAdminElectionModifications !=null){
-        navBarAdminElectionModifications .addEventListener("click", function(event){
+        navBarAdminElectionModifications.addEventListener("click", function(event){
             event.preventDefault()
            // alert("yes2");
             window.location.href = directoryLinkAddress + 'adminIndex_ElectionModifications.html';
@@ -201,16 +233,16 @@ document.addEventListener(
     if (navBarAdminResults !=null){
         navBarAdminResults .addEventListener("click", function(event){
             event.preventDefault()
-            alert("yes3");
-           // window.location.href = directoryLinkAddress + 'adminIndex_ElectionModifications.html';
+            //alert("yes3");
+            window.location.href = directoryLinkAddress + 'adminIndex_ResultsModifications.html';
         })
     }
 
     if (navBarAdminViewResults !=null){
         navBarAdminViewResults .addEventListener("click", function(event){
             event.preventDefault()
-            alert("yes4");
-           // window.location.href = directoryLinkAddress + 'adminIndex_ElectionModifications.html';
+            //alert("yes4");
+            window.location.href = directoryLinkAddress + 'adminIndex_ViewResults.html';
         })
     }
 
@@ -221,6 +253,30 @@ document.addEventListener(
             window.location.href = directoryLinkAddress + 'adminIndex_RegisterVoters.html';
         })
     }
+
+    if (adminResultsView != null){
+        
+        fetch(serverLink + "election/admin/results", {
+            method: 'GET',
+            headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem("adminToken")
+            }})
+            .then((response) => response.json())
+            .then((result) => {
+            var i = 0;
+            while (result.results[i] != null) {
+               // adminResultsView.innerHTML += "<br>" + result.results[i].name;
+               console.log(result.results[i])
+               adminResultsView.innerHTML += "<br>" + result.results[i].name + " for " + result.results[i].position
+                + "<br># of votes: " + (parseInt(result.results[i].noOfVotes)-1) + "<br>";
+            i++;
+            }
+            })
+            .catch((error) => console.log("error", error)); 
+            }
+    
 
     //Redirect to logIn page upon successful email verification
     //Complete
@@ -248,12 +304,24 @@ document.addEventListener(
             },
         })
         .then((response) => {response.json()
-            verifyEmail = false;
-            window.location.href = directoryLinkAddress + 'logIn.html';
+
+            if (response.ok == false){
+                alert("There was an error sending your OTP. Please try again later, the voting period may be over. For further instructions contact your administrator.")
+            }
+            else{
+                verifyEmail = false;
+                console.log(result.success)
+                alert("Please check your email for your OTP. You will be redirected to the sign in page.")
+                window.location.href = directoryLinkAddress + 'logIn.html';
+
+            }
         })
-        .then((json) => console.log(json));
+        .catch((error) => console.log("error", error));
+       
     } 
-    else { errorMessage.innerHTML = "*Please ensure a valid UWI email is entered."; }
+    else { 
+        alert("Please ensure a valid UWI email is entered.");
+     }
     }
     )
     .catch((error) => console.log("error", error)); 
@@ -264,7 +332,7 @@ document.addEventListener(
     //Redirect to vote page upon successful OTP verification
     //Complete
     if (submitOTPButton != null){
-    if (localStorage.getItem("email")!=null){
+    if (localStorage.getItem("email")!=null ){
     document.getElementById("email").value = localStorage.getItem("email");
     }
     submitOTPButton.addEventListener("click", function(event){
@@ -283,7 +351,7 @@ document.addEventListener(
         window.location.href = directoryLinkAddress + 'voteIntroPage.html';
     }
     else{
-        console.log("OTP verification unsuccessful");
+        alert("OTP verification unsuccessful");
     }
     }
     )
@@ -291,7 +359,7 @@ document.addEventListener(
 
     }
     else{
-    errorMessage.innerHTML = "*Please ensure an OTP is entered.";
+        alert("Please ensure an OTP is entered.");
     }
     });
     }
@@ -359,12 +427,12 @@ document.addEventListener(
                 window.location.href = directoryLinkAddress + 'adminIndex.html';
             }
             else {
-                errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
+                alert("Please ensure an email and password is entered.");
             }
             })
             }
             else{
-                errorMessageAdmin.innerHTML = "*Please ensure an email and password is entered.";
+                alert("Please ensure an email and password is entered.");
             }
         });
     } 
@@ -589,7 +657,7 @@ document.addEventListener(
     if (generateElectionResults != null){
     generateElectionResults.addEventListener("click", function(event){
     event.preventDefault();
-    alert("Yes")
+    //alert("Yes")
 
     fetch(serverLink + 'election/results', {
     method: 'POST',
@@ -621,6 +689,34 @@ document.addEventListener(
     if (postElectionResults != null){
     postElectionResults.addEventListener("click", function(event){
     event.preventDefault();
+        //alert("You clicked it")
+
+        fetch(serverLink + 'admin/results-pub',{
+            method: 'PATCH',
+            body: JSON.stringify({
+             // "cids":  studentVote//JSON.parse(localStorage.studentVote),
+            }),
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json',
+              'Authorization': localStorage.getItem("adminToken"),
+              },
+            })
+            .then(res => res.json()) 
+            .then(res => {
+                if (res.success == true){
+                    alert("Election results have been posted.");
+                }
+                //need to put for other errors
+                else{
+                    alert("Election results have been posted.");
+                }
+                
+                
+            })
+            .catch(err => console.error())
+
+
     })
     }
 
@@ -628,7 +724,30 @@ document.addEventListener(
     if (retractElectionResults != null){
     retractElectionResults.addEventListener("click", function(event){
     event.preventDefault();
-
+    // alert("You clicked it")
+        fetch(serverLink + 'admin/results-priv',{
+            method: 'PATCH',
+            body: JSON.stringify({
+            // "cids":  studentVote//JSON.parse(localStorage.studentVote),
+            }),
+            headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem("adminToken"),
+            },
+            })
+            .then(res => res.json()) 
+            .then(res => {
+                if (res.success == true){
+                    alert("Election results have been retracted.");
+                }
+                //need to put for other errors
+                else{
+                    alert("Election results have been retracted.");
+                }
+                
+            })
+            .catch(err => console.error())
 
     })
     }
@@ -975,7 +1094,7 @@ document.addEventListener(
             .catch(err => console.error())
 
      
-        console.log("Ballot submitted")
+       // console.log("Ballot submitted")
 
 
     }

@@ -161,13 +161,50 @@ a:active {
 
 
 
-#createElection, #addCandidate, #deleteElection, #registerVoter{
+#createElection, #addCandidate, #deleteElection, #registerVoter, #generateElectionResults, #postElectionResults, #retractElectionResults{
   cursor: pointer;
   font-weight: bold;
 
 
   background: #FFFFFF;
   border: 1px solid #E8E8E8;
+  border-radius: 3px;
+  font-size: 14px;
+  
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-right: 8px;
+   
+}
+
+#createElection:hover, #addCandidate:hover, #registerVoter:hover, #generateElectionResults:hover, #postElectionResults:hover, #retractElectionResults:hover{
+  cursor: pointer;
+  font-weight: bold;
+
+
+  background: #ffffff;
+  border: 1px solid #ffa8a8;
+  border-radius: 3px;
+  font-size: 14px;
+  
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-right: 8px;
+   
+}
+
+#deleteElection{
+  cursor: pointer;
+  font-weight: bold;
+
+
+  background: #ff4040;
+  color: white;
+  border: 1px solid #ffa8a8;
   border-radius: 3px;
   font-size: 14px;
   

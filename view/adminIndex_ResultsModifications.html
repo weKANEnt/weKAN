@@ -35,14 +35,14 @@
            
         </div>
         <div class="leftContent">
-
+            
             <div class="adminNavBar">
                 <ul>
                     <li ><a href="#" class="navBarAdmin">Election Creation</a></li>
                     <li class="li1"><a class="navBarAdmin" href="#">Election Modifications</a></li>
-                    <li class="li1"><a class="navBarAdmin" href="#">Results Modifications</a></li>
+                    <li class="li1"><a class="navBarAdmin hightlightNav" href="#">Results Modifications</a></li>
                     <li class="li1"><a class="navBarAdmin" href="#">View Results</a></li>
-                    <li class="li1"><a class="navBarAdmin hightlightNav" href="#">Register Voter</a></li>
+                    <li class="li1"><a class="navBarAdmin" href="#">Register Voter</a></li>
                 </ul>
             </div>
             
@@ -50,45 +50,18 @@
         </div>
         <div class="rightContent">
             <div class="createElectionSection">
-                <h4>Voter Information</h4>
-                
-                <label class="label" for="email">Email</label><br>
-                <input class="input" type="text" id="email" placeholder="Email here"><br>    
-                
-                <label class="label" for="hall">Attached Hall</label><br>
-                <select name="hallsOfLiving" id="hallsOfLivingDropdown">
-                    
-                </select>
-
-                <br>
-                <label class="label" for="faculty">Faculty of Study</label><br>
-                <select name="facultyOfStudy" id="facultyOfStudyDropdown">
-
-                </select>
-
-
-                <br>
-                <label class="label" for="commuteStatus">Commuter</label><br>
-                <select name="commuteStatus" id="commuteStatus">
-                    <option value = false>No</option>
-                    <option value = true>Yes</option>
-                </select>
-
-                <br>
-                <label class="label" for="postGradStatus">Post Grad</label><br>
-                <select name="postGradStatus" id="postGradStatus">
-                    <option value = false>No</option>
-                    <option value = true>Yes</option>
-                </select>
-
-
-                <br>
-                <br>
-                <input id="registerVoter" class="redButton" type="submit" value="Register Voter">
-                <a href="#" class="redLink" id="cancelRegisterVoter">Cancel</a>
-                <br>
-                <div id="errorMessage"><i></i></div> <br>
+                <h4>Generate Election Results</h4>
+                <input class="redButton" type="submit" id="generateElectionResults" value="Generate Election Results">
             </div>
+            <br>
+            <div class="createElectionSection">
+                <h4>Election Results Visibility</h4>
+                <input class="redButton" type="submit" id="postElectionResults" value="Post Election Results">
+                <br>
+                <br>
+                <input class="redButton" type="submit" id="retractElectionResults" value="Retract Election Results">
+            </div>
+            
         </div>
         
     
