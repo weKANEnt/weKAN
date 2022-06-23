@@ -111,6 +111,16 @@ a:active {
   padding-bottom: 50px;
 }
 
+.createElectionSection2{
+  background: #FFFFFF;
+  border: 1px solid #E8E8E8;
+  border-radius: 3px;
+  font-size: 16px;
+  padding-left: 35px;
+  padding-bottom: 50px;
+  margin-right: 35px;
+}
+
 
 .li1{
   margin-top: -1px;
