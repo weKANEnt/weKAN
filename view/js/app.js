@@ -255,6 +255,53 @@ document.addEventListener(
     }
 
     if (adminResultsView != null){
+
+        //'presidents', 'vpssp', 'vppsi', 'secretary', 'treasurer', 'gcc',
+        //'pro', 'ceac', 'eac', 'facultyrep', 'commuting', 'postgrad', 'hallchair','dhallchair'
+        var toView = []
+        var GuildPresident = []
+        var VicePresidentSSP  = []
+        var VicePresidentPSI  = []
+        var Secretary = []
+        var Treasurer = []
+        var GamesCommitteeChairperson = []
+        var PublicRelationsOfficer = []
+        var CulturalEntertainmentAffairsChairperson = []
+        var ExternalAffairsChairperson = []
+        var FSTRepresentative = []
+        var MedicalSciencesRepresentative = []
+        var FSSRepresentative = []
+        var HUMEDRepresentative = []
+        var IGDSRepresentative = []
+        var SportRepresentative = []
+        var PostGraduateRepresentative = []
+        var CommutingStudentsRepresentative = []
+        var LawRepresentative = []
+        var EngineeringRepresentative = []
+        var ABCHallChairman = []
+        var ABCDeputyHallChairman = []
+        var AZPrestonHallChairman = []
+        var AZPrestonDeputyHallChairman = []
+        var ChancellorHallChairman = []
+        var ChancellorDeputyHallChairman = []
+        var ELRHallChairman = []
+        var ELRDeputyHallChairman = []
+        var IrvineHallChairman = []
+        var IrvineDeputyHallChairman = []
+        var MarySeacoleHallChairman = []
+        var MarySeacoleDeputyHallChairman = []
+        var RexNettlefordHallChairman = []
+        var RexNettlefordDeputyHallChairman = []
+        var TaylorHallChairman = []
+        var TaylorDeputyHallChairman = []
+        var WJCHallChairman = []
+        var WJCDeputyHallChairman = []
+        var LeslieRobinsonHallChairman = []
+        var LeslieRobinsonDeputyHallChairman = []
+        var GeorgeAlleyneHallChairman = []
+        var GeorgeAlleyneDeputyHallChairman = []
+        var MarleneHamiltonHallChairman = []
+        var MarleneHamiltonDeputyHallChairman = []
         
         fetch(serverLink + "election/admin/results", {
             method: 'GET',
@@ -265,17 +312,128 @@ document.addEventListener(
             }})
             .then((response) => response.json())
             .then((result) => {
-            var i = 0;
-            while (result.results[i] != null) {
+                candidatesToPost = result.results
+                console.log(candidatesToPost)
+                console.log(candidatesToPost.length)
+                //console.log(candidatesToPost)
+               /*    for (i in candidatesToPost){
+                    //console.log(candidatesToPost[i].position)
+                    if (candidatesToPost[i].position.includes("Guild President")){
+                        GuildPresident.push(parseInt(i));
+                    }
+
+                    if (candidatesToPost[i].position.includes("Vice President (SSP)")){
+                        VicePresidentSSP.push(parseInt(i));
+                    }
+
+                 
+                    
+                   
+                }*/
+
+                /**
+                 * var VicePresidentSSP  = []
+        var VicePresidentPSI  = []
+        var Secretary = []
+        var TreasurerGamesCommitteeChairperson = []
+        var PublicRelationsOfficer = []
+        var CulturalEntertainmentAffairsChairperson = []
+        var ExternalAffairsChairperson = [] 
+                 */
+
+                printCandidatesForResults(GuildPresident, result.results, "Guild President");
+                printCandidatesForResults(VicePresidentSSP, result.results, "Vice President (SSP)");
+                printCandidatesForResults(VicePresidentPSI, result.results, "Vice President (PSI)");
+                printCandidatesForResults(Secretary, result.results, "Secretary");
+                printCandidatesForResults(Treasurer, result.results, "Treasurer");
+                printCandidatesForResults(GamesCommitteeChairperson, result.results, "Games Committee Chairperson");
+                printCandidatesForResults(PublicRelationsOfficer, result.results, "Public Relations Officer");
+                printCandidatesForResults(CulturalEntertainmentAffairsChairperson, result.results, "Cultural Entertainment Affairs Chairperson");
+                printCandidatesForResults(ExternalAffairsChairperson, result.results, "External Affairs Chairperson");
+                printCandidatesForResults(FSTRepresentative, result.results, "FST Representative");
+                printCandidatesForResults(MedicalSciencesRepresentative, result.results, "Medical Sciences Representative");
+                printCandidatesForResults(FSSRepresentative, result.results, "FSS Representative");
+                printCandidatesForResults(HUMEDRepresentative, result.results, "HUMED Representative");
+                printCandidatesForResults(IGDSRepresentative, result.results, "IGDS Representative");
+                printCandidatesForResults(SportRepresentative, result.results, "Sport Representative");
+                printCandidatesForResults(PostGraduateRepresentative, result.results, "Post Graduate Representative");
+                printCandidatesForResults(CommutingStudentsRepresentative, result.results, "Commuting Students Representative");
+                printCandidatesForResults(LawRepresentative, result.results, "Law Representative");
+                printCandidatesForResults(ABCHallChairman, result.results, "ABC Hall Chairman");
+                printCandidatesForResults(ABCDeputyHallChairman, result.results, "ABC Deputy Hall Chairman");
+                printCandidatesForResults(EngineeringRepresentative, result.results, "Engineering Representative");
+                printCandidatesForResults(AZPrestonHallChairman, result.results, "A.Z Preston Hall Chairman");
+                printCandidatesForResults(AZPrestonDeputyHallChairman, result.results, "A.Z Preston Deputy Hall Chairman");
+                printCandidatesForResults(ChancellorHallChairman, result.results, "Chancellor Hall Chairman");
+                printCandidatesForResults(ChancellorDeputyHallChairman, result.results, "Chancellor Deputy Hall Chairman");
+
+
+
+                printCandidatesForResults(ELRHallChairman, result.results, "ELR Hall Chairman");
+                printCandidatesForResults(ELRDeputyHallChairman, result.results, "ELR Deputy Hall Chairman");
+                printCandidatesForResults(IrvineHallChairman, result.results, "Irvine Hall Chairman");
+                printCandidatesForResults(IrvineDeputyHallChairman, result.results, "Irvine Deputy Hall Chairman");
+                printCandidatesForResults(MarySeacoleHallChairman, result.results, "Mary Seacole Hall Chairman");
+                printCandidatesForResults(MarySeacoleDeputyHallChairman, result.results, "Mary Seacole Deputy Hall Chairman");
+                printCandidatesForResults(RexNettlefordHallChairman, result.results, "Rex Nettleford Hall Chairman");
+                printCandidatesForResults(RexNettlefordDeputyHallChairman, result.results, "Rex Nettleford Deputy Hall Chairman");
+
+                printCandidatesForResults(TaylorHallChairman, result.results, "Taylor Hall Chairman");
+                printCandidatesForResults(TaylorDeputyHallChairman, result.results, "Taylor Deputy Hall Chairman");
+                printCandidatesForResults(WJCHallChairman, result.results, "WJC Hall Chairman");
+                printCandidatesForResults(WJCDeputyHallChairman, result.results, "WJC Deputy Hall Chairman");
+                printCandidatesForResults(LeslieRobinsonHallChairman, result.results, "Leslie Robinson Hall Chairman");
+                printCandidatesForResults(LeslieRobinsonDeputyHallChairman, result.results, "Leslie Robinson Deputy Hall Chairman");
+                printCandidatesForResults(GeorgeAlleyneHallChairman, result.results, "George Alleyne Hall Chairman");
+                printCandidatesForResults(GeorgeAlleyneDeputyHallChairman, result.results, "George Alleyne Deputy Hall Chairman");
+                printCandidatesForResults(MarleneHamiltonHallChairman, result.results, "Marlene Hamilton Hall Chairman");
+                printCandidatesForResults(MarleneHamiltonDeputyHallChairman, result.results, "Marlene Hamilton Deputy Hall Chairman");
+
+                /*
+                for (z in GuildPresident){
+                    adminResultsView.innerHTML += "<br>" + result.results[z].name + " for " + result.results[z].position
+                    + "<br># of votes: " + (parseInt(result.results[z].noOfVotes)-1) + "<br>"
+                }
+
+                for (z in GuildPresident){
+                    adminResultsView.innerHTML += "<br>" + result.results[z].name + " for " + result.results[z].position
+                    + "<br># of votes: " + (parseInt(result.results[z].noOfVotes)-1) + "<br>"
+                } */
+                //console.log(candidatesToPost[0].position)
+            //uncomment var i = 0;
+
+           //uncomment while (result.results[i] != null) {
                // adminResultsView.innerHTML += "<br>" + result.results[i].name;
-               console.log(result.results[i])
-               adminResultsView.innerHTML += "<br>" + result.results[i].name + " for " + result.results[i].position
-                + "<br># of votes: " + (parseInt(result.results[i].noOfVotes)-1) + "<br>";
-            i++;
-            }
+               
+               //console.log("Here:" + result.results[i])
+               //candidatesToView = result.results[i]
+               //uncomment adminResultsView.innerHTML += "<br>" + result.results[i].name + " for " + result.results[i].position
+               //uncomment + "<br># of votes: " + (parseInt(result.results[i].noOfVotes)-1) + "<br>";
+            //uncomment i++;
+           //uncomment }
             })
             .catch((error) => console.log("error", error)); 
             }
+
+
+    function printCandidatesForResults(arrayToPrint, secondArray, candidateName){
+        for (i in secondArray){
+            //console.log(secondArray[i].position)
+            if (secondArray[i].position.includes(candidateName) && (arrayToPrint.includes(parseInt(i)) == false)){
+                arrayToPrint.push(parseInt(i));
+            }
+        }
+
+        if ( arrayToPrint.length != 0){
+            adminResultsView.innerHTML += "<h4>" + candidateName + "</h4>"
+            for (i in arrayToPrint){
+                adminResultsView.innerHTML += secondArray[arrayToPrint[i]].name + " - " + secondArray[arrayToPrint[i]].noOfVotes + "<br>";
+            }
+        }
+        
+    }
+
+    
     
 
     //Redirect to logIn page upon successful email verification
