@@ -116,7 +116,7 @@ padding: 10px;
   grid-area: leftContent;
   max-width: 500px;
   padding-top: 30px;
-  padding-left: 50px;
+  padding-left: 150px;
 }
 
 .rightContent {
@@ -240,6 +240,10 @@ label {
 }
 
 .elects{
+  padding-left: 50px;
+}
+
+.candidatesView{
   padding-left: 50px;
 }
 /*

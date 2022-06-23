@@ -88,7 +88,7 @@ document.addEventListener(
     var retractElectionResults = document.getElementById("retractElectionResults");
     var adminResultsView = document.getElementById("adminResultsView")
     var studentResultsView = document.getElementById("elects")
-
+    var candidatesView = document.getElementById("candidatesView");
     var startStudentBallot = document.getElementById("startStudentBallott");
     var nextButton = document.getElementById("next");
 
@@ -1353,38 +1353,39 @@ document.addEventListener(
                 
                 })
                 .catch((error) => console.log("error", error)); 
-        
-    
-    
+    }
 
 
+    if (candidatesView != null){
+        //candidatesView.innerHTML = "Yes"
+        //pageText.innerHTML += "This page will be added in future updates!<br><br>";
+        //pageText.innerHTML += "<a href=# id=returnToHome class=redLink>Return to Home</a>"
+        //loadCandidatesToVoteFor();
+        //console.log(candidatesToRun)
+        /*if (candidatesToRun[0] != null){
+            if (getSelectedValue != null){
+                studentVote.push(parseInt(getSelectedValue.id));
+                //studentVote
+               // console.log("Student vote is: " + studentVote)
+                if (candidatesToRun.length != 0){
+                    loadCandidates(candidatesToRun[0]);
+                    candidatesToRun.shift();
+                    
+                }
+                
 
 
+            }else{
+                console.log("Please select an item")
+            }
 
-
-
+        }*/
 
     }
 
-    /*
-    function printCandidatesForResults(arrayToPrint, secondArray, candidateName, whereToPrint){
-        //                printCandidatesForResults(MarleneHamiltonDeputyHallChairman, result.results, "Marlene Hamilton Deputy Hall Chairman",adminResultsView);
 
-        for (i in secondArray){
-            //console.log(secondArray[i].position)
-            if (secondArray[i].position.includes(candidateName) && (arrayToPrint.includes(parseInt(i)) == false)){
-                arrayToPrint.push(parseInt(i));
-            }
-        }
 
-        if ( arrayToPrint.length != 0){
-            whereToPrint.innerHTML += "<b><p>" + candidateName + "</p></b>"
-            for (i in arrayToPrint){
-                whereToPrint.innerHTML += secondArray[arrayToPrint[i]].name + " - " + secondArray[arrayToPrint[i]].noOfVotes + "<br>";
-            }
-        }
-        
-    }*/
+    
   
 
     },
